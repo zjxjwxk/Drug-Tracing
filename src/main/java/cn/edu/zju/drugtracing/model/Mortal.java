@@ -56,38 +56,38 @@ public class Mortal extends Contract {
     }
 
     public static RemoteCall<Mortal> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Mortal.class, web3j, credentials, contractGasProvider, BINARY, "");
+        return deployRemoteCall(Mortal.class, web3j, credentials, contractGasProvider, BINARY, "");
     }
 
     public static RemoteCall<Mortal> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Mortal.class, web3j, transactionManager, contractGasProvider, BINARY, "");
+        return deployRemoteCall(Mortal.class, web3j, transactionManager, contractGasProvider, BINARY, "");
     }
 
     @Deprecated
     public static RemoteCall<Mortal> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Mortal.class, web3j, credentials, gasPrice, gasLimit, BINARY, "");
+        return deployRemoteCall(Mortal.class, web3j, credentials, gasPrice, gasLimit, BINARY, "");
     }
 
     @Deprecated
     public static RemoteCall<Mortal> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Mortal.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, "");
+        return deployRemoteCall(Mortal.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, "");
     }
 
     @Deprecated
-    public static cn.edu.zju.drugtracing.model.Mortal load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return new cn.edu.zju.drugtracing.model.Mortal(contractAddress, web3j, credentials, gasPrice, gasLimit);
+    public static Mortal load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new Mortal(contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
     @Deprecated
-    public static cn.edu.zju.drugtracing.model.Mortal load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return new cn.edu.zju.drugtracing.model.Mortal(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    public static Mortal load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new Mortal(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    public static cn.edu.zju.drugtracing.model.Mortal load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return new cn.edu.zju.drugtracing.model.Mortal(contractAddress, web3j, credentials, contractGasProvider);
+    public static Mortal load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return new Mortal(contractAddress, web3j, credentials, contractGasProvider);
     }
 
-    public static cn.edu.zju.drugtracing.model.Mortal load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return new cn.edu.zju.drugtracing.model.Mortal(contractAddress, web3j, transactionManager, contractGasProvider);
+    public static Mortal load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return new Mortal(contractAddress, web3j, transactionManager, contractGasProvider);
     }
 }

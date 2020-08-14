@@ -91,24 +91,24 @@ public class Greeter extends Contract {
 
     public static RemoteCall<Greeter> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider, String _greeting) {
         String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new Utf8String(_greeting)));
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Greeter.class, web3j, credentials, contractGasProvider, BINARY, encodedConstructor);
+        return deployRemoteCall(Greeter.class, web3j, credentials, contractGasProvider, BINARY, encodedConstructor);
     }
 
     public static RemoteCall<Greeter> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider, String _greeting) {
         String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new Utf8String(_greeting)));
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Greeter.class, web3j, transactionManager, contractGasProvider, BINARY, encodedConstructor);
+        return deployRemoteCall(Greeter.class, web3j, transactionManager, contractGasProvider, BINARY, encodedConstructor);
     }
 
     @Deprecated
     public static RemoteCall<Greeter> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, String _greeting) {
         String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new Utf8String(_greeting)));
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Greeter.class, web3j, credentials, gasPrice, gasLimit, BINARY, encodedConstructor);
+        return deployRemoteCall(Greeter.class, web3j, credentials, gasPrice, gasLimit, BINARY, encodedConstructor);
     }
 
     @Deprecated
     public static RemoteCall<Greeter> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit, String _greeting) {
         String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new Utf8String(_greeting)));
-        return deployRemoteCall(cn.edu.zju.drugtracing.model.Greeter.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, encodedConstructor);
+        return deployRemoteCall(Greeter.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, encodedConstructor);
     }
 
     public List<ModifiedEventResponse> getModifiedEvents(TransactionReceipt transactionReceipt) {
@@ -149,21 +149,21 @@ public class Greeter extends Contract {
     }
 
     @Deprecated
-    public static cn.edu.zju.drugtracing.model.Greeter load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return new cn.edu.zju.drugtracing.model.Greeter(contractAddress, web3j, credentials, gasPrice, gasLimit);
+    public static Greeter load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new Greeter(contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
     @Deprecated
-    public static cn.edu.zju.drugtracing.model.Greeter load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return new cn.edu.zju.drugtracing.model.Greeter(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    public static Greeter load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new Greeter(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    public static cn.edu.zju.drugtracing.model.Greeter load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return new cn.edu.zju.drugtracing.model.Greeter(contractAddress, web3j, credentials, contractGasProvider);
+    public static Greeter load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return new Greeter(contractAddress, web3j, credentials, contractGasProvider);
     }
 
-    public static cn.edu.zju.drugtracing.model.Greeter load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return new cn.edu.zju.drugtracing.model.Greeter(contractAddress, web3j, transactionManager, contractGasProvider);
+    public static Greeter load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return new Greeter(contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
     public static class ModifiedEventResponse {
