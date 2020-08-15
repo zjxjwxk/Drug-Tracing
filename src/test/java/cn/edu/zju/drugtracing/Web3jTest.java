@@ -4,7 +4,6 @@ import cn.edu.zju.drugtracing.model.Greeter;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
@@ -14,10 +13,9 @@ import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
-@SpringBootTest
-class DrugTracingApplicationTests {
+class Web3jTest {
 
-	private static final Logger log = LoggerFactory.getLogger(DrugTracingApplicationTests.class);
+	private static final Logger log = LoggerFactory.getLogger(Web3jTest.class);
 
 	@Test
 	public void deploy() throws Exception {
