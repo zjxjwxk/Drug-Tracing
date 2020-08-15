@@ -1,0 +1,10 @@
+client:
+  url: https://rinkeby.infura.io/v3/19791ab2d9924708b087b09b8d3a7962
+
+wallet:
+  password: 19981018
+  key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-11T09-33-08.11000000Z--249e0865a2f361d9bae7c4ec383beccb507e13bb.json
+
+contract:
+  address:
+    greeter: "0x7a1D53F7d063F00BD489c6A730331c051D9C5754"
