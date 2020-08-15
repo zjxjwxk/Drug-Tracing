@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/authority")
 public class AuthorityController {
 
-    @ApiOperation(value = "药品溯源（根据药品小包编号，获得药品溯源信息）", response = ServerResponse.class)
+    @ApiOperation("药品溯源（根据药品小包编号，获得药品溯源信息）")
     @GetMapping("/trace")
     @ResponseBody
     public ServerResponse trace(@ApiParam("药品小包编号") String packageID) {
         return null;
     }
 
-    @ApiOperation(value = "获得用户反馈", response = ServerResponse.class)
+    @ApiOperation("获得用户反馈")
     @GetMapping("/getFeedBack")
     @ResponseBody
     public ServerResponse getFeedBack() {
