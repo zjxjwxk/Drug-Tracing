@@ -33,7 +33,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "药品溯源平台API文档",
-                "一个基于以太坊平台的药品溯源平台",
+                "基于以太坊平台的药品溯源平台",
                 "API V1.0",
                 "",
                 new Contact("", "", ""),
