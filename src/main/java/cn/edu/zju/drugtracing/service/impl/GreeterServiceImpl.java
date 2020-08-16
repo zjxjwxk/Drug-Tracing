@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
@@ -31,12 +32,13 @@ public class GreeterServiceImpl implements GreeterService {
     private String walletPassword;
     @Value("${wallet.key-path}")
     private String walletKeyPath;
-    @Value("${contract.address.greeter}")
+    @Value("${contract.address}")
     private String greeterAddress;
 
     private Web3j web3j;
     private Credentials credentials;
     private ContractGasProvider contractGasProvider;
+    private Greeter greeter;
 
     @PostConstruct
     public void init() throws Exception {
@@ -45,22 +47,33 @@ public class GreeterServiceImpl implements GreeterService {
         credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
         log.info("Credentials loaded");
         contractGasProvider = new DefaultGasProvider();
-    }
-
-    @Override
-    public String greet() {
         log.info("Loading greeter smart contract at address: " + greeterAddress);
-        Greeter contract = Greeter.load(
+        greeter = Greeter.load(
                 greeterAddress,
                 web3j,
                 credentials,
                 contractGasProvider
         );
         log.info("View contract at https://rinkeby.etherscan.io/address/" + greeterAddress);
+    }
+
+    @Override
+    public String greet() {
         try {
-            String value = contract.greet().send();
+            String value = greeter.greet().send();
             log.info("Value stored in remote smart contract: " + value);
             return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String newGreet(String newGreet) {
+        try {
+            TransactionReceipt transactionReceipt = greeter.newGreeting(newGreet).send();
+            return greeter.greet().send();
         } catch (Exception e) {
             e.printStackTrace();
         }

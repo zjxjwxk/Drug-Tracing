@@ -31,4 +31,15 @@ public class GreeterController {
             return ServerResponse.createByError();
         }
     }
+
+    @GetMapping("/newGreet")
+    @ResponseBody
+    public ServerResponse<String> newGreet(String newGreet) {
+        String resultGreet = greeterService.newGreet(newGreet);
+        if (resultGreet != null) {
+            return ServerResponse.createBySuccess(resultGreet);
+        } else {
+            return ServerResponse.createByError();
+        }
+    }
 }

@@ -7,4 +7,6 @@ package cn.edu.zju.drugtracing.service;
 public interface GreeterService {
 
     String greet();
+
+    String newGreet(String newGreet);
 }
