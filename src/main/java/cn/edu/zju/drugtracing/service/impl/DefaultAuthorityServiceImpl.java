@@ -31,7 +31,7 @@ public class DefaultAuthorityServiceImpl implements AuthorityService {
     private String walletPassword;
     @Value("${wallet.key-path}")
     private String walletKeyPath;
-    @Value("${contract.address.greeter}")
+    @Value("${contract.address}")
     private String greeterAddress;
 
     private Web3j web3j;
@@ -40,11 +40,11 @@ public class DefaultAuthorityServiceImpl implements AuthorityService {
 
     @PostConstruct
     public void init() throws Exception {
-        web3j = Web3j.build(new HttpService(clientUrl));
-        File walletKey = new File(walletKeyPath);
-        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
-        log.info("Credentials loaded");
-        contractGasProvider = new DefaultGasProvider();
+//        web3j = Web3j.build(new HttpService(clientUrl));
+//        File walletKey = new File(walletKeyPath);
+//        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
+//        log.info("Credentials loaded");
+//        contractGasProvider = new DefaultGasProvider();
     }
 
     @Override

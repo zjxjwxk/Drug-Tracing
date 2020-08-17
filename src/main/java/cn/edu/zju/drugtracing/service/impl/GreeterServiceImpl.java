@@ -42,19 +42,19 @@ public class GreeterServiceImpl implements GreeterService {
 
     @PostConstruct
     public void init() throws Exception {
-        web3j = Web3j.build(new HttpService(clientUrl));
-        File walletKey = new File(walletKeyPath);
-        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
-        log.info("Credentials loaded");
-        contractGasProvider = new DefaultGasProvider();
-        log.info("Loading greeter smart contract at address: " + greeterAddress);
-        greeter = Greeter.load(
-                greeterAddress,
-                web3j,
-                credentials,
-                contractGasProvider
-        );
-        log.info("View contract at https://rinkeby.etherscan.io/address/" + greeterAddress);
+//        web3j = Web3j.build(new HttpService(clientUrl));
+//        File walletKey = new File(walletKeyPath);
+//        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
+//        log.info("Credentials loaded");
+//        contractGasProvider = new DefaultGasProvider();
+//        log.info("Loading greeter smart contract at address: " + greeterAddress);
+//        greeter = Greeter.load(
+//                greeterAddress,
+//                web3j,
+//                credentials,
+//                contractGasProvider
+//        );
+//        log.info("View contract at https://rinkeby.etherscan.io/address/" + greeterAddress);
     }
 
     @Override
