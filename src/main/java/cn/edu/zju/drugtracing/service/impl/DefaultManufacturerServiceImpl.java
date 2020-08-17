@@ -17,6 +17,7 @@ import org.web3j.tx.gas.DefaultGasProvider;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Xinkang Wu
@@ -43,19 +44,19 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
 
     @PostConstruct
     public void init() throws Exception {
-        web3j = Web3j.build(new HttpService(clientUrl));
-        log.info("Connected to Ethereum client");
-        File walletKey = new File(walletKeyPath);
-        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
-        log.info("Credentials loaded");
-        contractGasProvider = new DefaultGasProvider();
-        log.info("Loading MedicineSourceTracing smart contract at address: " + contractAddress);
-        medicineSourceTracing = MedicineSourceTracing.load(
-                contractAddress,
-                web3j,
-                credentials,
-                contractGasProvider
-        );
+//        web3j = Web3j.build(new HttpService(clientUrl));
+//        log.info("Connected to Ethereum client");
+//        File walletKey = new File(walletKeyPath);
+//        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
+//        log.info("Credentials loaded");
+//        contractGasProvider = new DefaultGasProvider();
+//        log.info("Loading MedicineSourceTracing smart contract at address: " + contractAddress);
+//        medicineSourceTracing = MedicineSourceTracing.load(
+//                contractAddress,
+//                web3j,
+//                credentials,
+//                contractGasProvider
+//        );
 //        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
     }
 
@@ -67,7 +68,8 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     @Override
     public ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setManufacturer(manufacturerAddr, manufacturerName.getBytes()).send();
+            CompletableFuture<TransactionReceipt> transactionReceiptCompletableFuture = medicineSourceTracing.setManufacturer(manufacturerAddr, manufacturerName.getBytes()).sendAsync();
+            transactionReceiptCompletableFuture.get();
             return ServerResponse.createBySuccess();
         } catch (Exception e) {
             e.printStackTrace();

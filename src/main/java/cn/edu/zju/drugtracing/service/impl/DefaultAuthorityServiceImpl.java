@@ -1,6 +1,7 @@
 package cn.edu.zju.drugtracing.service.impl;
 
 import cn.edu.zju.drugtracing.common.ServerResponse;
+import cn.edu.zju.drugtracing.model.MedicineSourceTracing;
 import cn.edu.zju.drugtracing.service.AuthorityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,19 +33,29 @@ public class DefaultAuthorityServiceImpl implements AuthorityService {
     @Value("${wallet.key-path}")
     private String walletKeyPath;
     @Value("${contract.address}")
-    private String greeterAddress;
+    private String contractAddress;
 
     private Web3j web3j;
     private Credentials credentials;
     private ContractGasProvider contractGasProvider;
+    private MedicineSourceTracing medicineSourceTracing;
 
     @PostConstruct
     public void init() throws Exception {
 //        web3j = Web3j.build(new HttpService(clientUrl));
+//        log.info("Connected to Ethereum client");
 //        File walletKey = new File(walletKeyPath);
 //        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
 //        log.info("Credentials loaded");
 //        contractGasProvider = new DefaultGasProvider();
+//        log.info("Loading MedicineSourceTracing smart contract at address: " + contractAddress);
+//        medicineSourceTracing = MedicineSourceTracing.load(
+//                contractAddress,
+//                web3j,
+//                credentials,
+//                contractGasProvider
+//        );
+//        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
     }
 
     @Override
