@@ -1,12 +1,14 @@
 package cn.edu.zju.drugtracing.service;
 
+import cn.edu.zju.drugtracing.common.ServerResponse;
+
 /**
  * @author Xinkang Wu
  * @date 2020/8/14 9:45 下午
  */
 public interface GreeterService {
 
-    String greet();
+    ServerResponse<String> greet();
 
-    String newGreet(String newGreet);
+    ServerResponse<String> newGreet(String newGreet);
 }

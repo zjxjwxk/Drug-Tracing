@@ -24,22 +24,12 @@ public class GreeterController {
     @GetMapping("/greet")
     @ResponseBody
     public ServerResponse<String> greet() {
-        String greet = greeterService.greet();
-        if (greet != null) {
-            return ServerResponse.createBySuccess(greet);
-        } else {
-            return ServerResponse.createByError();
-        }
+        return greeterService.greet();
     }
 
     @GetMapping("/newGreet")
     @ResponseBody
     public ServerResponse<String> newGreet(String newGreet) {
-        String resultGreet = greeterService.newGreet(newGreet);
-        if (resultGreet != null) {
-            return ServerResponse.createBySuccess(resultGreet);
-        } else {
-            return ServerResponse.createByError();
-        }
+        return greeterService.newGreet(newGreet);
     }
 }
