@@ -10,7 +10,7 @@ public interface ManufacturerService {
 
     ServerResponse get();
 
-    ServerResponse set();
+    ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName);
 
     ServerResponse setFormulation(String drugID, String drugName, String[] material);
 

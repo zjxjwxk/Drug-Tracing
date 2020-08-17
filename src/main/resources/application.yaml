@@ -1,10 +1,14 @@
 client:
-  url: https://rinkeby.infura.io/v3/19791ab2d9924708b087b09b8d3a7962
+  url: http://172.16.247.129:4444
+
+#  url: https://rinkeby.infura.io/v3/19791ab2d9924708b087b09b8d3a7962
 
 wallet:
-  password: 19981018
-  key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-11T09-33-08.11000000Z--249e0865a2f361d9bae7c4ec383beccb507e13bb.json
+  password: 123456
+  key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-05-27T00-15-38.978080837Z--87e08e9e27d6c1645b773a37ac4bd09773b3dd94.json
+#  password: 19981018
+#  key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-11T09-33-08.11000000Z--249e0865a2f361d9bae7c4ec383beccb507e13bb.json
 
 contract:
-  address:
-    greeter: "0x7a1D53F7d063F00BD489c6A730331c051D9C5754"
+  address: "0x7659a35ce86c25ae4933a61be52951d7d0549165"
+#  address: "0x7a1D53F7d063F00BD489c6A730331c051D9C5754"

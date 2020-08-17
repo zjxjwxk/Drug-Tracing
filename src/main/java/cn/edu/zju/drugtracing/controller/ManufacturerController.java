@@ -1,6 +1,7 @@
 package cn.edu.zju.drugtracing.controller;
 
 import cn.edu.zju.drugtracing.common.ServerResponse;
+import cn.edu.zju.drugtracing.service.ManufacturerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,16 +16,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/manufacturer")
 public class ManufacturerController {
 
+    private final ManufacturerService manufacturerService;
+
+    public ManufacturerController(ManufacturerService manufacturerService) {
+        this.manufacturerService = manufacturerService;
+    }
+
     @GetMapping("/get")
     @ResponseBody
     public ServerResponse get() {
         return null;
     }
 
-    @PostMapping("/set")
+    @PostMapping("/setManufacturer")
     @ResponseBody
-    public ServerResponse set() {
-        return null;
+    public ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName) {
+        return manufacturerService.setManufacturer(manufacturerAddr, manufacturerName);
     }
 
     @ApiOperation("打包药品（根据药品小包编号、对应的药品大包编号，打包药品）")
