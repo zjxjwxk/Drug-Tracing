@@ -37,6 +37,6 @@ public class ConsumerController {
                                    @ApiParam("消费者地址") @RequestParam String consumerAddr,
                                    @ApiParam(value = "反馈时间", example ="0") @RequestParam Integer time,
                                    @ApiParam("反馈信息") @RequestParam String information) {
-        return null;
+        return consumerService.feedBack(packageID, consumerAddr, time, information);
     }
 }
