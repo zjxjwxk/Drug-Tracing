@@ -35,7 +35,7 @@ public class ConsumerController {
     @ResponseBody
     public ServerResponse<String> feedBack(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") @RequestParam String packageID,
                                    @ApiParam("消费者地址") @RequestParam String consumerAddr,
-                                   @ApiParam("反馈时间") @RequestParam Integer time,
+                                   @ApiParam(value = "反馈时间", example ="0") @RequestParam Integer time,
                                    @ApiParam("反馈信息") @RequestParam String information) {
         return null;
     }

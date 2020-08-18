@@ -40,7 +40,7 @@ public class TransporterController {
     @PostMapping("/pick")
     @ResponseBody
     public ServerResponse<String> pick(@ApiParam("药品大包编号（3bytes药品ID+3bytes大包ID）") @RequestParam String boxID,
-                               @ApiParam("收揽时间（输入0则为当前时间）") @RequestParam Integer time) {
+                               @ApiParam(value = "收揽时间（输入0则为当前时间）", example = "0") @RequestParam Integer time) {
         return transporterService.pick(boxID, time);
     }
 
@@ -48,7 +48,7 @@ public class TransporterController {
     @PostMapping("/drop")
     @ResponseBody
     public ServerResponse<String> drop(@ApiParam("药品大包编号（3bytes药品ID+3bytes大包ID）") @RequestParam String boxID,
-                                       @ApiParam("送达时间（输入0则为当前时间）") @RequestParam Integer time,
+                                       @ApiParam(value = "送达时间（输入0则为当前时间）", example = "0") @RequestParam Integer time,
                                        @ApiParam("药品销售平台地址") @RequestParam String sellerAddr) {
         return transporterService.drop(boxID, time, sellerAddr);
     }

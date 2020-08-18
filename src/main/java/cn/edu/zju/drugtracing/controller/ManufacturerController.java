@@ -58,7 +58,7 @@ public class ManufacturerController {
     @ResponseBody
     public ServerResponse<String> setBoxInfo(@ApiParam("药品大包编号（3bytes药品ID+3bytes大包ID）") @RequestParam String boxID,
                                      @ApiParam("药品生产企业地址") @RequestParam String manufacturerAddr,
-                                     @ApiParam("包装时间（输入0则为当前时间）") @RequestParam Integer time,
+                                     @ApiParam(value = "包装时间（输入0则为当前时间）", example = "0") @RequestParam Integer time,
                                      @ApiParam("原料编号") @RequestParam String materialID) {
         return manufacturerService.setBoxInfo(boxID, manufacturerAddr, time, materialID);
     }
