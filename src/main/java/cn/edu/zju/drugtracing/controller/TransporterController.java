@@ -31,7 +31,7 @@ public class TransporterController {
     @ApiOperation("上传药品流通企业信息（根据药品流通企业地址（输入0则为当前函数调用者地址）、药品流通企业名称，上传药品流通企业信息）")
     @PostMapping("/setTransporter")
     @ResponseBody
-    public ServerResponse<String> setTransporter(@ApiParam("药品流通企业地址") String transporterAddr,
+    public ServerResponse<String> setTransporter(@ApiParam("药品流通企业地址（输入0则为当前函数调用者地址）") String transporterAddr,
                                          @ApiParam("药品流通企业名称") String transporterName) {
         return transporterService.setTransporter(transporterAddr, transporterName);
     }
@@ -40,7 +40,7 @@ public class TransporterController {
     @PostMapping("/pick")
     @ResponseBody
     public ServerResponse<String> pick(@ApiParam("药品大包编号") String boxID,
-                               @ApiParam("收揽时间") String time) {
+                               @ApiParam("收揽时间（输入0则为当前时间）") String time) {
         return transporterService.pick(boxID, time);
     }
 
@@ -48,7 +48,7 @@ public class TransporterController {
     @PostMapping("/drop")
     @ResponseBody
     public ServerResponse<String> drop(@ApiParam("药品大包编号") String boxID,
-                                       @ApiParam("送达时间") String time,
+                                       @ApiParam("送达时间（输入0则为当前时间）") String time,
                                        @ApiParam("药品销售平台地址") String sellerAddr) {
         return transporterService.drop(boxID, time, sellerAddr);
     }

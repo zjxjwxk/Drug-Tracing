@@ -31,16 +31,16 @@ public class ManufacturerController {
     @ApiOperation("上传药品生产企业信息（根据药品生产企业地址（输入0则为当前函数调用者地址）、药品生产企业名称，上传药品生产企业信息）")
     @PostMapping("/setManufacturer")
     @ResponseBody
-    public ServerResponse<String> setManufacturer(@ApiParam("药品生产企业地址") String manufacturerAddr,
+    public ServerResponse<String> setManufacturer(@ApiParam("药品生产企业地址（输入0则为当前函数调用者地址）") String manufacturerAddr,
                                                   @ApiParam("药品生产企业名称") String manufacturerName) {
         return manufacturerService.setManufacturer(manufacturerAddr, manufacturerName);
     }
 
-    @ApiOperation("打包药品（根据药品小包编号、对应的药品大包编号，上传对应关系）")
+    @ApiOperation("打包药品（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）、对应的药品大包编号（3bytes药品ID+3bytes大包ID），上传对应关系）")
     @PostMapping("/pack")
     @ResponseBody
-    public ServerResponse<String> pack(@ApiParam("药品小包编号") String packageID,
-                               @ApiParam("药品大包编号") String boxID) {
+    public ServerResponse<String> pack(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") String packageID,
+                               @ApiParam("药品大包编号（3bytes药品ID+3bytes大包ID）") String boxID) {
         return manufacturerService.pack(packageID, boxID);
     }
 
@@ -53,12 +53,12 @@ public class ManufacturerController {
         return manufacturerService.setFormulation(drugID, drugName, material);
     }
 
-    @ApiOperation("上传包装信息（根据药品大包编号、药品生产企业地址、包装时间(输入0则为当前时间)、药品原料编号，上传包装信息）")
+    @ApiOperation("上传包装信息（根据药品大包编号、药品生产企业地址、包装时间（输入0则为当前时间）、药品原料编号，上传包装信息）")
     @PostMapping("/setBoxInfo")
     @ResponseBody
     public ServerResponse<String> setBoxInfo(@ApiParam("药品大包编号") String boxID,
                                      @ApiParam("药品生产企业地址") String manufacturerAddr,
-                                     @ApiParam("包装时间") String time,
+                                     @ApiParam("包装时间（输入0则为当前时间）") String time,
                                      @ApiParam("原料编号") String materialID) {
         return manufacturerService.setBoxInfo(boxID, manufacturerAddr, time, materialID);
     }
