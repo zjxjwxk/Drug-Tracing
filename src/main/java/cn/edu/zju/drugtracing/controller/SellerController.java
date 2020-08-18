@@ -42,10 +42,10 @@ public class SellerController {
     @PostMapping("/setSellInfo")
     @ResponseBody
     public ServerResponse<String> setSellInfo(@ApiParam("药品小包编号") String packageID,
-                                      @ApiParam("销售时间（输入0则为当前时间）") String time,
+                                      @ApiParam("销售时间（输入0则为当前时间）") Integer time,
                                       @ApiParam("销售平台地址") String sellerAddr,
                                       @ApiParam("消费者地址") String consumerAddr,
-                                      @ApiParam("销售价格") String price) {
+                                      @ApiParam("销售价格") Integer price) {
         return sellerService.setSellInfo(packageID, time, sellerAddr, consumerAddr, price);
     }
 }
