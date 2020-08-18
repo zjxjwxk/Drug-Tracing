@@ -10,9 +10,9 @@ public interface TransporterService {
 
     ServerResponse get();
 
-    ServerResponse set();
+    ServerResponse<String> setTransporter(String transporterAddr, String transporterName);
 
-    ServerResponse pick(String boxID, String time, String orderID);
+    ServerResponse<String> pick(String boxID, String time);
 
-    ServerResponse drop(String boxID, String time, String orderID);
+    ServerResponse<String> drop(String boxID, String time, String sellerAddr);
 }
