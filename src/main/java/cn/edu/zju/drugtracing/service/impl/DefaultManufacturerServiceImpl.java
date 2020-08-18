@@ -103,9 +103,9 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public ServerResponse<String> setBoxInfo(String boxID, String manufacturerAddr, String time, String materialID) {
+    public ServerResponse<String> setBoxInfo(String boxID, String manufacturerAddr, Integer time, String materialID) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setBoxInfo(boxID.getBytes(), manufacturerAddr, BigInteger.valueOf(Long.parseLong(time)), materialID.getBytes()).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setBoxInfo(boxID.getBytes(), manufacturerAddr, BigInteger.valueOf(time), materialID.getBytes()).send();
             MedicineSourceTracing.NewBoxInfoEventResponse response = medicineSourceTracing.getNewBoxInfoEvents(transactionReceipt).get(0);
             return ServerResponse.createBySuccessMessage(response.message);
         } catch (Exception e) {
