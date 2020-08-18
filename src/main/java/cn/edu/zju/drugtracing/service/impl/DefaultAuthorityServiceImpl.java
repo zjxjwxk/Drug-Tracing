@@ -31,9 +31,9 @@ public class DefaultAuthorityServiceImpl implements AuthorityService {
 
     @Value("${client.url}")
     private String clientUrl;
-    @Value("${wallet.password}")
+    @Value("${wallet.authority.password}")
     private String walletPassword;
-    @Value("${wallet.key-path}")
+    @Value("${wallet.authority.key-path}")
     private String walletKeyPath;
     @Value("${contract.address}")
     private String contractAddress;

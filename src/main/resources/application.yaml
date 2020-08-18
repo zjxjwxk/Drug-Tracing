@@ -1,14 +1,28 @@
 client:
-#  url: http://192.168.2.105:4444
   url: https://rinkeby.infura.io/v3/19791ab2d9924708b087b09b8d3a7962
+#  url: http://192.168.2.105:4444
 
 wallet:
-#  password: 123456
-#  key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-05-27T00-15-38.978080837Z--87e08e9e27d6c1645b773a37ac4bd09773b3dd94.json
-  password: 19981018
-  key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-11T09-33-08.11000000Z--249e0865a2f361d9bae7c4ec383beccb507e13bb.json
+  authority:
+    password: 19981018
+    key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-11T09-33-08.11000000Z--249e0865a2f361d9bae7c4ec383beccb507e13bb.json
+  consumer:
+    password: 19981018
+    key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-18T13-48-54.142000000Z--2134e73c71396aeb2524f11aaae34630ef33a54d.json
+  manufacturer:
+    password: 19981018
+    key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-18T13-49-29.587000000Z--6a37f9a4e5fdab29cff74552cf7a42a1509c6933.json
+  seller:
+    password: 19981018
+    key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-18T13-49-40.161000000Z--24ecf3e18bb9424c54fa726e653ff09f6e93f226.json
+  transporter:
+    password: 19981018
+    key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-08-18T13-49-47.910000000Z--c9e2cdc5b7801fb7c9fc92e46dc11a533c410d0c.json
+#  private-chain:
+#    password: 123456
+#    key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-05-27T00-15-38.978080837Z--87e08e9e27d6c1645b773a37ac4bd09773b3dd94.json
 
 contract:
-#  address: "0x7659a35ce86c25ae4933a61be52951d7d0549165" # 私链 MedicineSourceTracing
-#  address: "0x7a1D53F7d063F00BD489c6A730331c051D9C5754" # 测试网络 Greeter
   address: "0x9c1c4eafd9b89d0f828d42bf8452dc63cec331a4" # 测试网络 MedicineSourceTracing
+  #  address: "0x7a1D53F7d063F00BD489c6A730331c051D9C5754" # 测试网络 Greeter
+  #  address: "0x7659a35ce86c25ae4933a61be52951d7d0549165" # 私链 MedicineSourceTracing

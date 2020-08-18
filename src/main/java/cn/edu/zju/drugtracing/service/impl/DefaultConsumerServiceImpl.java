@@ -32,9 +32,9 @@ public class DefaultConsumerServiceImpl implements ConsumerService {
 
     @Value("${client.url}")
     private String clientUrl;
-    @Value("${wallet.password}")
+    @Value("${wallet.consumer.password}")
     private String walletPassword;
-    @Value("${wallet.key-path}")
+    @Value("${wallet.consumer.key-path}")
     private String walletKeyPath;
     @Value("${contract.address}")
     private String contractAddress;

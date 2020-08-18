@@ -30,9 +30,9 @@ public class DefaultSellerServiceImpl implements SellerService {
 
     @Value("${client.url}")
     private String clientUrl;
-    @Value("${wallet.password}")
+    @Value("${wallet.seller.password}")
     private String walletPassword;
-    @Value("${wallet.key-path}")
+    @Value("${wallet.seller.key-path}")
     private String walletKeyPath;
     @Value("${contract.address}")
     private String contractAddress;

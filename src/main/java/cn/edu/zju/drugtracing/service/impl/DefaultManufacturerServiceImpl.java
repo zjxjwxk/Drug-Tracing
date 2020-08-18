@@ -30,9 +30,9 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
 
     @Value("${client.url}")
     private String clientUrl;
-    @Value("${wallet.password}")
+    @Value("${wallet.manufacturer.password}")
     private String walletPassword;
-    @Value("${wallet.key-path}")
+    @Value("${wallet.manufacturer.key-path}")
     private String walletKeyPath;
     @Value("${contract.address}")
     private String contractAddress;

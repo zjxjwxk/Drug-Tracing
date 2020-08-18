@@ -30,9 +30,9 @@ public class DefaultTransporterServiceImpl implements TransporterService {
 
     @Value("${client.url}")
     private String clientUrl;
-    @Value("${wallet.password}")
+    @Value("${wallet.transporter.password}")
     private String walletPassword;
-    @Value("${wallet.key-path}")
+    @Value("${wallet.transporter.key-path}")
     private String walletKeyPath;
     @Value("${contract.address}")
     private String contractAddress;
