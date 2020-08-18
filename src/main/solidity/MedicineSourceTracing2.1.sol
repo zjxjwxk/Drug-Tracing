@@ -1,6 +1,6 @@
-// pragma solidity ^0.4.0;
+pragma solidity ^0.4.0;
 
-contract MedicineSourceTracing{
+contract MedicineSourceTracing {
     /*********************Manufacturer data structrue******************************/
     struct Manufacturer {    //生产商
         address manufacturerAddr;
@@ -79,7 +79,8 @@ contract MedicineSourceTracing{
     mapping (bytes9=>FeedBackInfo) feedBackInfo;
     
     /**************************user information sets********************************************/
-    function setManufacturer(address manufacturerAddr, bytes manufacturerName) returns(string){
+    event newManufacturer(address sender, string message);
+    function setManufacturer(address manufacturerAddr, bytes manufacturerName) public {
         if(manufacturerAddr == address(0))
             manufacturerAddr = msg.sender;     //输入为0地址时，默认为当前用户地址
         
@@ -93,12 +94,13 @@ contract MedicineSourceTracing{
         manufacturer[manufacturerAddr].manufacturerName = manufacturerName;
         
         if(tag == false)
-            return("注册用户成功");
+            emit newManufacturer(msg.sender,  "用户注册成功");
         else
-            return("用户信息修改成功");
+            emit newManufacturer(msg.sender,  "用户信息修改成功");
     }
     
-    function setTransporter(address transporterAddr, bytes transporterName) returns(string){
+    event newTransporter(address sender, string message);
+    function setTransporter(address transporterAddr, bytes transporterName) public {
         if(transporterAddr == address(0))
             transporterAddr = msg.sender;     //输入为0地址时，默认为当前用户地址
         
@@ -112,12 +114,13 @@ contract MedicineSourceTracing{
         transporter[transporterAddr].transporterName = transporterName;
         
         if(tag == false)
-            return("注册用户成功");
+            emit newTransporter(msg.sender, "注册用户成功");
         else
-            return("用户信息修改成功");
+            emit newTransporter(msg.sender, "用户信息修改成功");
     }
     
-    function setSeller(address sellerAddr, bytes sellerName, uint sellerType) returns(string){
+    event newSeller(address sender, string message);
+    function setSeller(address sellerAddr, bytes sellerName, uint sellerType) public {
         if(sellerAddr == address(0))
             sellerAddr = msg.sender;     //输入为0地址时，默认为当前用户地址
         
@@ -132,12 +135,13 @@ contract MedicineSourceTracing{
         seller[sellerAddr].sellerType = sellerType;
         
         if(tag == false)
-            return("注册用户成功");
+            emit newSeller(msg.sender , "注册用户成功");
         else
-            return("用户信息修改成功");
+            emit newSeller(msg.sender , "用户信息修改成功");
     }
     
-     function setConsumer(address consumerAddr, uint gender, uint age) returns(string){
+    event newConsumer(address sender, string message);
+    function setConsumer(address consumerAddr, uint gender, uint age) public {
         if(consumerAddr == address(0))
             consumerAddr = msg.sender;     //输入为0地址时，默认为当前用户地址
         
@@ -152,23 +156,26 @@ contract MedicineSourceTracing{
         consumer[consumerAddr].age = age;
         
         if(tag == false)
-            return("注册用户成功");
+            emit newConsumer(msg.sender , "注册用户成功");
         else
-            return("用户信息修改成功");
+            emit newConsumer(msg.sender , "用户信息修改成功");
     }    
     
     /**************************functions********************************************/
     /*****************by manufacturer****************/
-    function pack(bytes9 packageID, bytes6 boxID) returns(string){
-        if(boxInfo[boxID].time == 0)  
-            return("大包信息不存在，请重新输入");
+    event newPackInfo(address sender, bool isSuccess, string message);
+    function pack(bytes9 packageID, bytes6 boxID) public {
+        if(boxInfo[boxID].time == 0)
+            emit newPackInfo(msg.sender, false, "大包信息不存在，请重新输入");
         for(uint i=0; i<6; i++)
             if(packageID[i] != boxID[i])
-                return("信息输入有误，请重新输入");
+                emit newPackInfo(msg.sender, false, "信息输入有误，请重新输入");
         packing[boxID].push(packageID);
-        return("包装信息上传成功");
+        emit newPackInfo(msg.sender, true, "包装信息上传成功");
     }
-    function setFormulation(bytes3 drugID, bytes drugName, bytes material) returns(string){
+    
+    event newFormulation(address sender, string message);
+    function setFormulation(bytes3 drugID, bytes drugName, bytes material) public {
         bool tag;
         if(formulation[drugID].existTag == 0)
             tag = false;
@@ -181,11 +188,13 @@ contract MedicineSourceTracing{
         formulation[drugID].existTag = 1;
         
         if(tag == false)
-            return("新配方上传成功");
+            emit newFormulation(msg.sender,"新配方上传成功");
         else
-            return("配方已存在，修改成功");
+            emit newFormulation(msg.sender,"配方已存在，修改成功");
     }
-    function setBoxInfo(bytes6 boxID, address manufacturerAddr, uint time, bytes materialID) returns(string){
+    
+    event newBoxInfo(address sender, string message);
+    function setBoxInfo(bytes6 boxID, address manufacturerAddr, uint time, bytes materialID) public {
         if(manufacturerAddr == address(0)) 
             manufacturerAddr=msg.sender;          //传入空地址时默认为合约调用者地址
         if(time == 0) 
@@ -203,13 +212,14 @@ contract MedicineSourceTracing{
         boxInfo[boxID].materialID = materialID;
         
         if(tag == false)
-            return("药品生产信息上传成功");
+            emit newBoxInfo(msg.sender, "药品生产信息上传成功");
         else
-            return("药品信息已存在，信息更新成功");
+            emit newBoxInfo(msg.sender, "药品信息已存在，信息更新成功");
     }
     
     /*****************by transporter****************/
-    function pick(bytes6 boxID, uint time, bytes orderID) returns(string){
+    event newPickInfo(address sender, string message);
+    function pick(bytes6 boxID, uint time) public {
         
         if(time == 0) 
             time = now;    //时间输入为0时默认当前时间
@@ -218,22 +228,24 @@ contract MedicineSourceTracing{
         transportInfo[boxID].manufacturerAddr = boxInfo[boxID].manufacturerAddr;
         transportInfo[boxID].transporterAddr = msg.sender;
         transportInfo[boxID].pickTime = time;
-        
-        return("取货成功");
+
+        emit newPickInfo(msg.sender, "取货成功");
     }
     
-    function drop(bytes6 boxID, uint time,address sellerAddr) returns(string){
+    event newDropInfo(address sender, string message);
+    function drop(bytes6 boxID, uint time,address sellerAddr) public {
         if(time == 0) 
             time = now;    //时间输入为0时默认当前时间
             
         transportInfo[boxID].dropTime = time;
         transportInfo[boxID].sellerAddr = sellerAddr;
-        
-        return("送达成功");
+
+        emit newDropInfo(msg.sender, "送达成功");
     }
     
     /*****************by seller****************/
-    function setSellInfo(bytes9 packageID, uint time, address sellerAddr, address consumerAddr, uint price) returns(string){
+    event newSellInfo(address sender, string message);
+    function setSellInfo(bytes9 packageID, uint time, address sellerAddr, address consumerAddr, uint price) public {
         if(time == 0) 
             time = now;    //时间输入为0时默认当前时间
         if(sellerAddr == address(0))
@@ -244,19 +256,12 @@ contract MedicineSourceTracing{
         sellInfo[packageID].sellerAddr = sellerAddr;
         sellInfo[packageID].consumerAddr = consumerAddr;
         sellInfo[packageID].price = price;
-        
-        return("零售信息上传成功");
-    }
-    
-    function getSellerName(bytes9 packageID) returns(bytes){
-        address temp;
-        temp = sellInfo[packageID].sellerAddr;
-        
-        return(seller[temp].sellerName);
+
+        emit newSellInfo(msg.sender, "零售信息上传成功");
     }
     
      /*****************by consumer or authority****************/
-     function trace(bytes9 packageID) returns(
+     function trace(bytes9 packageID) public view returns(
         bytes drugName,
         bytes material,
         bytes materialID,
@@ -285,8 +290,8 @@ contract MedicineSourceTracing{
         sellerName = seller[temp].sellerName;
         
     }
-        
-    function feedBack(bytes9 packageID, address consumerAddr, uint time, bytes information) returns(string){
+    event newFeedBack(address sender, string message);
+    function feedBack(bytes9 packageID, address consumerAddr, uint time, bytes information) public {
         if(time == 0) 
             time = now;    //时间输入为0时默认当前时间
         if(consumerAddr == address(0))
@@ -296,7 +301,7 @@ contract MedicineSourceTracing{
         feedBackInfo[packageID].consumerAddr = consumerAddr;
         feedBackInfo[packageID].time = time;
         feedBackInfo[packageID].information = information;
-        
-        return("信息反馈成功");
+
+        emit newFeedBack(msg.sender,"信息反馈成功");
     }
 }
