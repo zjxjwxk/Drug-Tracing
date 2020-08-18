@@ -12,7 +12,7 @@ public interface TransporterService {
 
     ServerResponse<String> setTransporter(String transporterAddr, String transporterName);
 
-    ServerResponse<String> pick(String boxID, String time);
+    ServerResponse<String> pick(String boxID, Integer time);
 
-    ServerResponse<String> drop(String boxID, String time, String sellerAddr);
+    ServerResponse<String> drop(String boxID, Integer time, String sellerAddr);
 }

@@ -16,5 +16,5 @@ public interface ManufacturerService {
 
     ServerResponse<String> setFormulation(String drugID, String drugName, String material);
 
-    ServerResponse<String> setBoxInfo(String boxID, String manufacturerAddr, String time, String materialID);
+    ServerResponse<String> setBoxInfo(String boxID, String manufacturerAddr, Integer time, String materialID);
 }
