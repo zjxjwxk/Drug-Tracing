@@ -1,7 +1,7 @@
 package cn.edu.zju.drugtracing.service.impl;
 
 import cn.edu.zju.drugtracing.common.ServerResponse;
-import cn.edu.zju.drugtracing.model.MedicineSourceTracing;
+import cn.edu.zju.drugtracing.contract.MedicineSourceTracing;
 import cn.edu.zju.drugtracing.service.SellerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.math.BigInteger;
 
 /**
  * @author Xinkang Wu
@@ -35,27 +37,24 @@ public class DefaultSellerServiceImpl implements SellerService {
     @Value("${contract.address}")
     private String contractAddress;
 
-    private Web3j web3j;
-    private Credentials credentials;
-    private ContractGasProvider contractGasProvider;
     private MedicineSourceTracing medicineSourceTracing;
 
     @PostConstruct
     public void init() throws Exception {
-//        web3j = Web3j.build(new HttpService(clientUrl));
-//        log.info("Connected to Ethereum client");
-//        File walletKey = new File(walletKeyPath);
-//        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
-//        log.info("Credentials loaded");
-//        contractGasProvider = new DefaultGasProvider();
-//        log.info("Loading MedicineSourceTracing smart contract at address: " + contractAddress);
-//        medicineSourceTracing = MedicineSourceTracing.load(
-//                contractAddress,
-//                web3j,
-//                credentials,
-//                contractGasProvider
-//        );
-//        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
+        Web3j web3j = Web3j.build(new HttpService(clientUrl));
+        log.info("Connected to Ethereum client");
+        File walletKey = new File(walletKeyPath);
+        Credentials credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
+        log.info("Credentials loaded");
+        ContractGasProvider contractGasProvider = new DefaultGasProvider();
+        log.info("Loading MedicineSourceTracing smart contract at address: " + contractAddress);
+        medicineSourceTracing = MedicineSourceTracing.load(
+                contractAddress,
+                web3j,
+                credentials,
+                contractGasProvider
+        );
+        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
     }
 
     @Override
@@ -64,12 +63,26 @@ public class DefaultSellerServiceImpl implements SellerService {
     }
 
     @Override
-    public ServerResponse set() {
-        return null;
+    public ServerResponse<String> setSeller(String sellerAddr, String sellerName, Integer sellerType) {
+        try {
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setSeller(sellerAddr, sellerName.getBytes(), BigInteger.valueOf(sellerType)).send();
+            MedicineSourceTracing.NewSellerEventResponse response = medicineSourceTracing.getNewSellerEvents(transactionReceipt).get(0);
+            return ServerResponse.createBySuccessMessage(response.message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ServerResponse.createByError();
     }
 
     @Override
-    public ServerResponse setSellInfo(String packageID, String time, String sellerAddr, String consumerAddr, String price) {
-        return null;
+    public ServerResponse<String> setSellInfo(String packageID, String time, String sellerAddr, String consumerAddr, String price) {
+        try {
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setSellInfo(packageID.getBytes(), BigInteger.valueOf(Integer.parseInt(time)), sellerAddr, consumerAddr, BigInteger.valueOf(Integer.parseInt(price))).send();
+            MedicineSourceTracing.NewSellerEventResponse response = medicineSourceTracing.getNewSellerEvents(transactionReceipt).get(0);
+            return ServerResponse.createBySuccessMessage(response.message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ServerResponse.createByError();
     }
 }
