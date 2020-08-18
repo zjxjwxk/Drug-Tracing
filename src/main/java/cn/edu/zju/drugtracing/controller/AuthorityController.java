@@ -23,10 +23,10 @@ public class AuthorityController {
         this.authorityService = authorityService;
     }
 
-    @ApiOperation("药品溯源（根据药品小包编号，获得药品溯源信息）")
+    @ApiOperation("药品溯源（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID），获得药品溯源信息）")
     @GetMapping("/trace")
     @ResponseBody
-    public ServerResponse<TraceVO> trace(@ApiParam("药品小包编号") String packageID) {
+    public ServerResponse<TraceVO> trace(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") @RequestParam String packageID) {
         return authorityService.trace(packageID);
     }
 

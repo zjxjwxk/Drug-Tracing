@@ -23,20 +23,20 @@ public class ConsumerController {
         this.consumerService = consumerService;
     }
 
-    @ApiOperation("药品溯源（根据药品小包编号，获得药品溯源信息）")
+    @ApiOperation("药品溯源（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID），获得药品溯源信息）")
     @GetMapping("/trace")
     @ResponseBody
-    public ServerResponse<TraceVO> trace(@ApiParam("药品小包编号") String packageID) {
+    public ServerResponse<TraceVO> trace(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") @RequestParam String packageID) {
         return consumerService.trace(packageID);
     }
 
-    @ApiOperation("药品反馈（根据药品小包编号、消费者地址、反馈时间、反馈信息，对药品进行反馈）")
+    @ApiOperation("药品反馈（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）、消费者地址、反馈时间、反馈信息，对药品进行反馈）")
     @PostMapping("/feedBack")
     @ResponseBody
-    public ServerResponse<String> feedBack(@ApiParam("药品小包编号") String packageID,
-                                   @ApiParam("消费者地址") String consumerAddr,
-                                   @ApiParam("反馈时间") Integer time,
-                                   @ApiParam("反馈信息") String information) {
+    public ServerResponse<String> feedBack(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") @RequestParam String packageID,
+                                   @ApiParam("消费者地址") @RequestParam String consumerAddr,
+                                   @ApiParam("反馈时间") @RequestParam Integer time,
+                                   @ApiParam("反馈信息") @RequestParam String information) {
         return null;
     }
 }

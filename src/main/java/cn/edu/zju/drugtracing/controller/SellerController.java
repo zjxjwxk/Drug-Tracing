@@ -32,20 +32,20 @@ public class SellerController {
             "药品销售平台名称、药品销售平台类型（0-医院；1-药店；2-电商），上传药品销售平台信息）")
     @PostMapping("/setSeller")
     @ResponseBody
-    public ServerResponse<String> setSeller(@ApiParam("药品销售平台地址") String sellerAddr,
-                                            @ApiParam("药品销售平台名称") String sellerName,
-                                            @ApiParam("药品销售平台类型（0-医院；1-药店；2-电商）") Integer sellerType) {
+    public ServerResponse<String> setSeller(@ApiParam("药品销售平台地址") @RequestParam String sellerAddr,
+                                            @ApiParam("药品销售平台名称") @RequestParam String sellerName,
+                                            @ApiParam("药品销售平台类型（0-医院；1-药店；2-电商）") @RequestParam Integer sellerType) {
         return sellerService.setSeller(sellerAddr, sellerName, sellerType);
     }
 
     @ApiOperation("上传销售信息（根据药品小包编号、销售时间（输入0则为当前时间）、销售平台地址、消费者地址、销售价格，上传销售信息）")
     @PostMapping("/setSellInfo")
     @ResponseBody
-    public ServerResponse<String> setSellInfo(@ApiParam("药品小包编号") String packageID,
-                                      @ApiParam("销售时间（输入0则为当前时间）") Integer time,
-                                      @ApiParam("销售平台地址") String sellerAddr,
-                                      @ApiParam("消费者地址") String consumerAddr,
-                                      @ApiParam("销售价格") Integer price) {
+    public ServerResponse<String> setSellInfo(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") @RequestParam String packageID,
+                                      @ApiParam("销售时间（输入0则为当前时间）") @RequestParam Integer time,
+                                      @ApiParam("销售平台地址") @RequestParam String sellerAddr,
+                                      @ApiParam("消费者地址") @RequestParam String consumerAddr,
+                                      @ApiParam("销售价格") @RequestParam Integer price) {
         return sellerService.setSellInfo(packageID, time, sellerAddr, consumerAddr, price);
     }
 }
