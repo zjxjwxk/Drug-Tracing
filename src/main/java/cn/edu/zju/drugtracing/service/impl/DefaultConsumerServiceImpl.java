@@ -28,7 +28,7 @@ import java.math.BigInteger;
 @Service("ConsumerService")
 public class DefaultConsumerServiceImpl implements ConsumerService {
 
-    private static final Logger log = LoggerFactory.getLogger(GreeterServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(DefaultConsumerServiceImpl.class);
 
     @Value("${client.url}")
     private String clientUrl;

@@ -22,11 +22,11 @@ public class TransporterController {
         this.transporterService = transporterService;
     }
 
-    @GetMapping("/get")
-    @ResponseBody
-    public ServerResponse get() {
-        return null;
-    }
+//    @GetMapping("/get")
+//    @ResponseBody
+//    public ServerResponse get() {
+//        return null;
+//    }
 
     @ApiOperation("上传药品流通企业信息（根据药品流通企业地址（输入0则为当前函数调用者地址）、药品流通企业名称，上传药品流通企业信息）")
     @PostMapping("/setTransporter")

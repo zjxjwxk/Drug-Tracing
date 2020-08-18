@@ -22,11 +22,11 @@ public class SellerController {
         this.sellerService = sellerService;
     }
 
-    @GetMapping("/get")
-    @ResponseBody
-    public ServerResponse get() {
-        return null;
-    }
+//    @GetMapping("/get")
+//    @ResponseBody
+//    public ServerResponse get() {
+//        return null;
+//    }
 
     @ApiOperation("上传药品销售平台信息（根据药品销售平台地址（输入0则为当前函数调用者地址）、" +
             "药品销售平台名称、药品销售平台类型（0-医院；1-药店；2-电商），上传药品销售平台信息）")

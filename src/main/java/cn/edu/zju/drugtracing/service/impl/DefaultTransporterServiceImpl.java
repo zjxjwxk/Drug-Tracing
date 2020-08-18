@@ -26,7 +26,7 @@ import java.math.BigInteger;
 @Service("TransporterService")
 public class DefaultTransporterServiceImpl implements TransporterService {
 
-    private static final Logger log = LoggerFactory.getLogger(GreeterServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(DefaultTransporterServiceImpl.class);
 
     @Value("${client.url}")
     private String clientUrl;

@@ -22,11 +22,11 @@ public class ManufacturerController {
         this.manufacturerService = manufacturerService;
     }
 
-    @GetMapping("/get")
-    @ResponseBody
-    public ServerResponse get() {
-        return null;
-    }
+//    @GetMapping("/get")
+//    @ResponseBody
+//    public ServerResponse get() {
+//        return null;
+//    }
 
     @ApiOperation("上传药品生产企业信息（根据药品生产企业地址（输入0则为当前函数调用者地址）、药品生产企业名称，上传药品生产企业信息）")
     @PostMapping("/setManufacturer")

@@ -26,7 +26,7 @@ import java.math.BigInteger;
 @Service("SellerService")
 public class DefaultSellerServiceImpl implements SellerService {
 
-    private static final Logger log = LoggerFactory.getLogger(GreeterServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(DefaultSellerServiceImpl.class);
 
     @Value("${client.url}")
     private String clientUrl;

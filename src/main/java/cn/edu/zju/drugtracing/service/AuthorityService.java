@@ -1,6 +1,7 @@
 package cn.edu.zju.drugtracing.service;
 
 import cn.edu.zju.drugtracing.common.ServerResponse;
+import cn.edu.zju.drugtracing.vo.TraceVO;
 
 /**
  * @author Xinkang Wu
@@ -8,7 +9,7 @@ import cn.edu.zju.drugtracing.common.ServerResponse;
  */
 public interface AuthorityService {
 
-    ServerResponse trace(String packageID);
+    ServerResponse<TraceVO> trace(String packageID);
 
     ServerResponse getFeedBack();
 }

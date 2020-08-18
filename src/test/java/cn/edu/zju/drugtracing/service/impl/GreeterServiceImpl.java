@@ -1,7 +1,7 @@
 package cn.edu.zju.drugtracing.service.impl;
 
 import cn.edu.zju.drugtracing.common.ServerResponse;
-import cn.edu.zju.drugtracing.model.Greeter;
+import cn.edu.zju.drugtracing.contract.Greeter;
 import cn.edu.zju.drugtracing.service.GreeterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
@@ -42,19 +43,19 @@ public class GreeterServiceImpl implements GreeterService {
 
     @PostConstruct
     public void init() throws Exception {
-        web3j = Web3j.build(new HttpService(clientUrl));
-        File walletKey = new File(walletKeyPath);
-        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
-        log.info("Credentials loaded");
-        contractGasProvider = new DefaultGasProvider();
-        log.info("Loading greeter smart contract at address: " + greeterAddress);
-        greeter = Greeter.load(
-                greeterAddress,
-                web3j,
-                credentials,
-                contractGasProvider
-        );
-        log.info("View contract at https://rinkeby.etherscan.io/address/" + greeterAddress);
+//        web3j = Web3j.build(new HttpService(clientUrl));
+//        File walletKey = new File(walletKeyPath);
+//        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
+//        log.info("Credentials loaded");
+//        contractGasProvider = new DefaultGasProvider();
+//        log.info("Loading greeter smart contract at address: " + greeterAddress);
+//        greeter = Greeter.load(
+//                greeterAddress,
+//                web3j,
+//                credentials,
+//                contractGasProvider
+//        );
+//        log.info("View contract at https://rinkeby.etherscan.io/address/" + greeterAddress);
     }
 
     @Override
@@ -72,8 +73,9 @@ public class GreeterServiceImpl implements GreeterService {
     @Override
     public ServerResponse<String> newGreet(String newGreet) {
         try {
-            greeter.newGreeting(newGreet).sendAsync();
-            return ServerResponse.createBySuccess();
+            TransactionReceipt transactionReceipt = greeter.newGreeting(newGreet).send();
+            Greeter.ModifiedEventResponse response = greeter.getModifiedEvents(transactionReceipt).get(0);
+            return ServerResponse.createBySuccess(response.oldGreeting + " => " + response.newGreeting);
         } catch (Exception e) {
             e.printStackTrace();
         }

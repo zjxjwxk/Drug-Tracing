@@ -10,7 +10,7 @@ public interface SellerService {
 
     ServerResponse get();
 
-    ServerResponse set();
+    ServerResponse<String> setSeller(String sellerAddr, String sellerName, Integer sellerType);
 
-    ServerResponse setSellInfo(String packageID, String time, String sellerAddr, String consumerAddr, String price);
+    ServerResponse<String> setSellInfo(String packageID, Integer time, String sellerAddr, String consumerAddr, Integer price);
 }

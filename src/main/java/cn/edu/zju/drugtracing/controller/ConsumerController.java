@@ -6,10 +6,7 @@ import cn.edu.zju.drugtracing.vo.TraceVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Xinkang Wu
@@ -27,7 +24,7 @@ public class ConsumerController {
     }
 
     @ApiOperation("药品溯源（根据药品小包编号，获得药品溯源信息）")
-    @PostMapping("/trace")
+    @GetMapping("/trace")
     @ResponseBody
     public ServerResponse<TraceVO> trace(@ApiParam("药品小包编号") String packageID) {
         return consumerService.trace(packageID);

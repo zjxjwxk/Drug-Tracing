@@ -26,7 +26,7 @@ import java.math.BigInteger;
 @Service("ManufacturerService")
 public class DefaultManufacturerServiceImpl implements ManufacturerService {
 
-    private static final Logger log = LoggerFactory.getLogger(GreeterServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(DefaultManufacturerServiceImpl.class);
 
     @Value("${client.url}")
     private String clientUrl;
