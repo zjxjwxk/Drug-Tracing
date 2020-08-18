@@ -30,12 +30,12 @@ public class ConsumerController {
         return consumerService.trace(packageID);
     }
 
-    @ApiOperation("药品反馈（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）、消费者地址、反馈时间、反馈信息，对药品进行反馈）")
+    @ApiOperation("药品反馈（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）、消费者地址（输入0则为当前函数调用者地址）、反馈时间（输入0则为当前时间）、反馈信息，对药品进行反馈）")
     @PostMapping("/feedBack")
     @ResponseBody
     public ServerResponse<String> feedBack(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") @RequestParam String packageID,
-                                   @ApiParam("消费者地址") @RequestParam String consumerAddr,
-                                   @ApiParam(value = "反馈时间", example ="0") @RequestParam Integer time,
+                                   @ApiParam("消费者地址（输入0则为当前函数调用者地址）") @RequestParam String consumerAddr,
+                                   @ApiParam(value = "反馈时间（输入0则为当前时间）", example ="0") @RequestParam Integer time,
                                    @ApiParam("反馈信息") @RequestParam String information) {
         return consumerService.feedBack(packageID, consumerAddr, time, information);
     }
