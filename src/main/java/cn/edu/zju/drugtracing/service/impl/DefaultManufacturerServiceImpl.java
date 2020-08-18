@@ -1,7 +1,7 @@
 package cn.edu.zju.drugtracing.service.impl;
 
 import cn.edu.zju.drugtracing.common.ServerResponse;
-import cn.edu.zju.drugtracing.model.MedicineSourceTracing;
+import cn.edu.zju.drugtracing.contract.MedicineSourceTracing;
 import cn.edu.zju.drugtracing.service.ManufacturerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import org.web3j.tx.gas.DefaultGasProvider;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
-import java.util.concurrent.CompletableFuture;
+import java.math.BigInteger;
 
 /**
  * @author Xinkang Wu
@@ -37,27 +37,24 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     @Value("${contract.address}")
     private String contractAddress;
 
-    private Web3j web3j;
-    private Credentials credentials;
-    private ContractGasProvider contractGasProvider;
     private MedicineSourceTracing medicineSourceTracing;
 
     @PostConstruct
     public void init() throws Exception {
-//        web3j = Web3j.build(new HttpService(clientUrl));
-//        log.info("Connected to Ethereum client");
-//        File walletKey = new File(walletKeyPath);
-//        credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
-//        log.info("Credentials loaded");
-//        contractGasProvider = new DefaultGasProvider();
-//        log.info("Loading MedicineSourceTracing smart contract at address: " + contractAddress);
-//        medicineSourceTracing = MedicineSourceTracing.load(
-//                contractAddress,
-//                web3j,
-//                credentials,
-//                contractGasProvider
-//        );
-//        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
+        Web3j web3j = Web3j.build(new HttpService(clientUrl));
+        log.info("Connected to Ethereum client");
+        File walletKey = new File(walletKeyPath);
+        Credentials credentials = WalletUtils.loadCredentials(walletPassword, walletKey);
+        log.info("Credentials loaded");
+        ContractGasProvider contractGasProvider = new DefaultGasProvider();
+        log.info("Loading MedicineSourceTracing smart contract at address: " + contractAddress);
+        medicineSourceTracing = MedicineSourceTracing.load(
+                contractAddress,
+                web3j,
+                credentials,
+                contractGasProvider
+        );
+        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
     }
 
     @Override
@@ -68,9 +65,9 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     @Override
     public ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName) {
         try {
-            CompletableFuture<TransactionReceipt> transactionReceiptCompletableFuture = medicineSourceTracing.setManufacturer(manufacturerAddr, manufacturerName.getBytes()).sendAsync();
-            transactionReceiptCompletableFuture.get();
-            return ServerResponse.createBySuccess();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setManufacturer(manufacturerAddr, manufacturerName.getBytes()).send();
+            MedicineSourceTracing.NewManufacturerEventResponse response = medicineSourceTracing.getNewManufacturerEvents(transactionReceipt).get(0);
+            return ServerResponse.createBySuccessMessage(response.message);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,12 +75,42 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public ServerResponse setFormulation(String drugID, String drugName, String[] material) {
-        return null;
+    public ServerResponse<String> pack(String packageID, String boxID) {
+        try {
+            TransactionReceipt transactionReceipt = medicineSourceTracing.pack(packageID.getBytes(), boxID.getBytes()).send();
+            MedicineSourceTracing.NewPackInfoEventResponse response = medicineSourceTracing.getNewPackInfoEvents(transactionReceipt).get(0);
+            if (response.isSuccess) {
+                return ServerResponse.createBySuccessMessage(response.message);
+            } else {
+                return ServerResponse.createByErrorMessage(response.message);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ServerResponse.createByError();
     }
 
     @Override
-    public ServerResponse setBoxInfo(String boxID, String manufacturerAddr, String time, String materialID) {
-        return null;
+    public ServerResponse<String> setFormulation(String drugID, String drugName, String material) {
+        try {
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setFormulation(drugID.getBytes(), drugName.getBytes(), material.getBytes()).send();
+            MedicineSourceTracing.NewFormulationEventResponse response = medicineSourceTracing.getNewFormulationEvents(transactionReceipt).get(0);
+            return ServerResponse.createBySuccessMessage(response.message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ServerResponse.createByError();
+    }
+
+    @Override
+    public ServerResponse<String> setBoxInfo(String boxID, String manufacturerAddr, String time, String materialID) {
+        try {
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setBoxInfo(boxID.getBytes(), manufacturerAddr, BigInteger.valueOf(Long.parseLong(time)), materialID.getBytes()).send();
+            MedicineSourceTracing.NewBoxInfoEventResponse response = medicineSourceTracing.getNewBoxInfoEvents(transactionReceipt).get(0);
+            return ServerResponse.createBySuccessMessage(response.message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ServerResponse.createByError();
     }
 }

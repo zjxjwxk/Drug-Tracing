@@ -28,36 +28,38 @@ public class ManufacturerController {
         return null;
     }
 
+    @ApiOperation("上传药品生产企业信息（根据药品生产企业地址（输入0则为当前函数调用者地址）、药品生产企业名称，上传药品生产企业信息）")
     @PostMapping("/setManufacturer")
     @ResponseBody
-    public ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName) {
+    public ServerResponse<String> setManufacturer(@ApiParam("药品生产企业地址") String manufacturerAddr,
+                                                  @ApiParam("药品生产企业名称") String manufacturerName) {
         return manufacturerService.setManufacturer(manufacturerAddr, manufacturerName);
     }
 
-    @ApiOperation("打包药品（根据药品小包编号、对应的药品大包编号，打包药品）")
+    @ApiOperation("打包药品（根据药品小包编号、对应的药品大包编号，上传对应关系）")
     @PostMapping("/pack")
     @ResponseBody
-    public ServerResponse pack(@ApiParam("药品小包编号") String packageID,
+    public ServerResponse<String> pack(@ApiParam("药品小包编号") String packageID,
                                @ApiParam("药品大包编号") String boxID) {
-        return null;
+        return manufacturerService.pack(packageID, boxID);
     }
 
-    @ApiOperation("上传药方（根据药方编号、药方名称、原料，上传药方）")
+    @ApiOperation("上传药方（根据药品编号、药品名称、药品原料，上传药方）")
     @PostMapping("/setFormulation")
     @ResponseBody
-    public ServerResponse setFormulation(@ApiParam("药方编号") String drugID,
-                                         @ApiParam("药方名称") String drugName,
-                                         @ApiParam("原料") String[] material) {
-        return null;
+    public ServerResponse<String> setFormulation(@ApiParam("药品编号") String drugID,
+                                         @ApiParam("药品名称") String drugName,
+                                         @ApiParam("药品原料") String material) {
+        return manufacturerService.setFormulation(drugID, drugName, material);
     }
 
-    @ApiOperation("上传包装信息（根据药品大包编号、药品生产企业地址、包装时间、原料编号，上传包装信息）")
+    @ApiOperation("上传包装信息（根据药品大包编号、药品生产企业地址、包装时间(输入0则为当前时间)、药品原料编号，上传包装信息）")
     @PostMapping("/setBoxInfo")
     @ResponseBody
-    public ServerResponse setBoxInfo(@ApiParam("药品大包编号") String boxID,
+    public ServerResponse<String> setBoxInfo(@ApiParam("药品大包编号") String boxID,
                                      @ApiParam("药品生产企业地址") String manufacturerAddr,
                                      @ApiParam("包装时间") String time,
                                      @ApiParam("原料编号") String materialID) {
-        return null;
+        return manufacturerService.setBoxInfo(boxID, manufacturerAddr, time, materialID);
     }
 }
