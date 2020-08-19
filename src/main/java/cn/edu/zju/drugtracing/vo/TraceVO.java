@@ -13,12 +13,12 @@ public class TraceVO {
     String material;
     String materialID;
     String manufacturerName;
-    Integer pickTime;
+    String pickTime;
     String transporterName;
-    Integer dropTime;
+    String dropTime;
     String sellerName;
 
-    public TraceVO(String drugName, String material, String materialID, String manufacturerName, Integer pickTime, String transporterName, Integer dropTime, String sellerName) {
+    public TraceVO(String drugName, String material, String materialID, String manufacturerName, String pickTime, String transporterName, String dropTime, String sellerName) {
         this.drugName = drugName;
         this.material = material;
         this.materialID = materialID;

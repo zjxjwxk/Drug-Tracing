@@ -19,6 +19,8 @@ import org.web3j.tx.gas.DefaultGasProvider;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Xinkang Wu
@@ -65,8 +67,8 @@ public class DefaultAuthorityServiceImpl implements AuthorityService {
             return ServerResponse.createBySuccess(new TraceVO(
                     new String(tuple8.getValue1()), new String(tuple8.getValue2()),
                     new String(tuple8.getValue3()), new String(tuple8.getValue4()),
-                    tuple8.getValue5().intValue(), new String(tuple8.getValue6()),
-                    tuple8.getValue7().intValue(), new String(tuple8.getValue8())
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple8.getValue5().longValue() * 1000)), new String(tuple8.getValue6()),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple8.getValue7().longValue() * 1000)), new String(tuple8.getValue8())
             ));
         } catch (Exception e) {
             e.printStackTrace();

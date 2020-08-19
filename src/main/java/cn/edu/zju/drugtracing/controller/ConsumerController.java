@@ -23,6 +23,15 @@ public class ConsumerController {
         this.consumerService = consumerService;
     }
 
+    @ApiOperation("上传消费者信息（根据消费者地址（输入0则为当前函数调用者地址）、消费者性别，上传消费者信息）")
+    @PostMapping("/setConsumer")
+    @ResponseBody
+    public ServerResponse<String> setConsumer(@ApiParam("消费者地址（输入0则为当前函数调用者地址）") @RequestParam String consumerAddr,
+                                                  @ApiParam(value = "消费者性别", example = "0") @RequestParam Integer gender,
+                                                  @ApiParam(value = "消费者年龄", example = "0") @RequestParam Integer age) {
+        return consumerService.setConsumer(consumerAddr, gender, age);
+    }
+
     @ApiOperation("药品溯源（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID），获得药品溯源信息）")
     @GetMapping("/trace")
     @ResponseBody
