@@ -58,11 +58,6 @@ public class DefaultTransporterServiceImpl implements TransporterService {
     }
 
     @Override
-    public ServerResponse get() {
-        return null;
-    }
-
-    @Override
     public ServerResponse<String> setTransporter(String transporterAddr, String transporterName) {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.setTransporter(transporterAddr, transporterName.getBytes()).send();
@@ -79,7 +74,11 @@ public class DefaultTransporterServiceImpl implements TransporterService {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.pick(boxID.getBytes(), BigInteger.valueOf(time)).send();
             MedicineSourceTracing.NewPickInfoEventResponse response = medicineSourceTracing.getNewPickInfoEvents(transactionReceipt).get(0);
-            return ServerResponse.createBySuccessMessage(response.message);
+            if (response.isSuccess) {
+                return ServerResponse.createBySuccessMessage(response.message);
+            } else {
+                return ServerResponse.createByErrorMessage(response.message);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +90,11 @@ public class DefaultTransporterServiceImpl implements TransporterService {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.drop(boxID.getBytes(), BigInteger.valueOf(time), sellerAddr).send();
             MedicineSourceTracing.NewDropInfoEventResponse response = medicineSourceTracing.getNewDropInfoEvents(transactionReceipt).get(0);
-            return ServerResponse.createBySuccessMessage(response.message);
+            if (response.isSuccess) {
+                return ServerResponse.createBySuccessMessage(response.message);
+            } else {
+                return ServerResponse.createByErrorMessage(response.message);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

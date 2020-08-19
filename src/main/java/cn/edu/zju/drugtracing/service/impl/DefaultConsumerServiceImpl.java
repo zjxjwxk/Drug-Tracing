@@ -80,7 +80,11 @@ public class DefaultConsumerServiceImpl implements ConsumerService {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.feedBack(packageID.getBytes(), consumerAddr, BigInteger.valueOf(time), information.getBytes()).send();
             MedicineSourceTracing.NewFeedBackEventResponse response = medicineSourceTracing.getNewFeedBackEvents(transactionReceipt).get(0);
-            return ServerResponse.createBySuccessMessage(response.message);
+            if (response.isSuccess) {
+                return ServerResponse.createBySuccessMessage(response.message);
+            } else {
+                return ServerResponse.createByErrorMessage(response.message);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

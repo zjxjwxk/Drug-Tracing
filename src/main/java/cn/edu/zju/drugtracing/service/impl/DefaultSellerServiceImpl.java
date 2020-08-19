@@ -58,11 +58,6 @@ public class DefaultSellerServiceImpl implements SellerService {
     }
 
     @Override
-    public ServerResponse get() {
-        return null;
-    }
-
-    @Override
     public ServerResponse<String> setSeller(String sellerAddr, String sellerName, Integer sellerType) {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.setSeller(sellerAddr, sellerName.getBytes(), BigInteger.valueOf(sellerType)).send();
@@ -79,7 +74,11 @@ public class DefaultSellerServiceImpl implements SellerService {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.setSellInfo(packageID.getBytes(), BigInteger.valueOf(time), sellerAddr, consumerAddr, BigInteger.valueOf(price)).send();
             MedicineSourceTracing.NewSellInfoEventResponse response = medicineSourceTracing.getNewSellInfoEvents(transactionReceipt).get(0);
-            return ServerResponse.createBySuccessMessage(response.message);
+            if (response.isSuccess) {
+                return ServerResponse.createBySuccessMessage(response.message);
+            } else {
+                return ServerResponse.createByErrorMessage(response.message);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

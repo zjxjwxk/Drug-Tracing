@@ -73,9 +73,4 @@ public class DefaultAuthorityServiceImpl implements AuthorityService {
         }
         return ServerResponse.createByError();
     }
-
-    @Override
-    public ServerResponse<String> getFeedBack() {
-        return null;
-    }
 }

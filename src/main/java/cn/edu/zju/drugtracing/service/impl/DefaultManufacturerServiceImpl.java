@@ -58,11 +58,6 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public ServerResponse get() {
-        return null;
-    }
-
-    @Override
     public ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName) {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.setManufacturer(manufacturerAddr, manufacturerName.getBytes()).send();
@@ -95,7 +90,11 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.setFormulation(drugID.getBytes(), drugName.getBytes(), material.getBytes()).send();
             MedicineSourceTracing.NewFormulationEventResponse response = medicineSourceTracing.getNewFormulationEvents(transactionReceipt).get(0);
-            return ServerResponse.createBySuccessMessage(response.message);
+            if (response.isSuccess) {
+                return ServerResponse.createBySuccessMessage(response.message);
+            } else {
+                return ServerResponse.createByErrorMessage(response.message);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,7 +106,11 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
         try {
             TransactionReceipt transactionReceipt = medicineSourceTracing.setBoxInfo(boxID.getBytes(), manufacturerAddr, BigInteger.valueOf(time), materialID.getBytes()).send();
             MedicineSourceTracing.NewBoxInfoEventResponse response = medicineSourceTracing.getNewBoxInfoEvents(transactionReceipt).get(0);
-            return ServerResponse.createBySuccessMessage(response.message);
+            if (response.isSuccess) {
+                return ServerResponse.createBySuccessMessage(response.message);
+            } else {
+                return ServerResponse.createByErrorMessage(response.message);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
