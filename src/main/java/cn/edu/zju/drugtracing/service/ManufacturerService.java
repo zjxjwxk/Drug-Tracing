@@ -8,8 +8,6 @@ import cn.edu.zju.drugtracing.common.ServerResponse;
  */
 public interface ManufacturerService {
 
-    ServerResponse get();
-
     ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName);
 
     ServerResponse<String> pack(String packageID, String boxID);

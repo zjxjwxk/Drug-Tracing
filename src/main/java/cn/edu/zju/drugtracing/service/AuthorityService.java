@@ -10,6 +10,4 @@ import cn.edu.zju.drugtracing.vo.TraceVO;
 public interface AuthorityService {
 
     ServerResponse<TraceVO> trace(String packageID);
-
-    ServerResponse getFeedBack();
 }

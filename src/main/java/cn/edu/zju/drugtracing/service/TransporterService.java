@@ -8,8 +8,6 @@ import cn.edu.zju.drugtracing.common.ServerResponse;
  */
 public interface TransporterService {
 
-    ServerResponse get();
-
     ServerResponse<String> setTransporter(String transporterAddr, String transporterName);
 
     ServerResponse<String> pick(String boxID, Integer time);

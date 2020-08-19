@@ -29,11 +29,4 @@ public class AuthorityController {
     public ServerResponse<TraceVO> trace(@ApiParam("药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）") @RequestParam String packageID) {
         return authorityService.trace(packageID);
     }
-
-//    @ApiOperation("获得用户反馈")
-//    @GetMapping("/getFeedBack")
-//    @ResponseBody
-//    public ServerResponse<String> getFeedBack() {
-//        return null;
-//    }
 }
