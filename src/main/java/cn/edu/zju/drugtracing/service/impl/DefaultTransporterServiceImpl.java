@@ -58,9 +58,9 @@ public class DefaultTransporterServiceImpl implements TransporterService {
     }
 
     @Override
-    public ServerResponse<String> setTransporter(String transporterAddr, String transporterName) {
+    public ServerResponse<String> setTransporter(String transporterName) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setTransporter(transporterAddr, transporterName.getBytes()).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setTransporter(transporterName).send();
             MedicineSourceTracing.NewTransporterEventResponse response = medicineSourceTracing.getNewTransporterEvents(transactionReceipt).get(0);
             return ServerResponse.createBySuccessMessage(response.message);
         } catch (Exception e) {

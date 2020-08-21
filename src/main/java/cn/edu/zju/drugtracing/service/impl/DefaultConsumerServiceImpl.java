@@ -13,7 +13,7 @@ import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tuples.generated.Tuple8;
+import org.web3j.tuples.generated.Tuple9;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
 
@@ -21,7 +21,9 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Xinkang Wu
@@ -62,9 +64,9 @@ public class DefaultConsumerServiceImpl implements ConsumerService {
     }
 
     @Override
-    public ServerResponse<String> setConsumer(String consumerAddr, Integer gender, Integer age) {
+    public ServerResponse<String> setConsumer(Integer gender, Integer age) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setConsumer(consumerAddr, BigInteger.valueOf(gender), BigInteger.valueOf(age)).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setConsumer(BigInteger.valueOf(gender), BigInteger.valueOf(age)).send();
             MedicineSourceTracing.NewConsumerEventResponse response = medicineSourceTracing.getNewConsumerEvents(transactionReceipt).get(0);
             return ServerResponse.createBySuccessMessage(response.message);
         } catch (Exception e) {
@@ -76,12 +78,18 @@ public class DefaultConsumerServiceImpl implements ConsumerService {
     @Override
     public ServerResponse<TraceVO> trace(String packageID) {
         try {
-            Tuple8<byte[], byte[], byte[], byte[], BigInteger, byte[], BigInteger, byte[]> tuple8 = medicineSourceTracing.trace(packageID.getBytes()).send();
+            Tuple9<String, List<String>, List<byte[]>, String, BigInteger, String, BigInteger, String, BigInteger> tuple9 = medicineSourceTracing.trace(packageID.getBytes()).send();
+            List<String> materialIDStrList = new ArrayList<>();
+            List<byte[]> materialIDBytesList = new ArrayList<>();
+            for (byte[] materialIDBytes : materialIDBytesList) {
+                materialIDStrList.add(new String(materialIDBytes));
+            }
             return ServerResponse.createBySuccess(new TraceVO(
-                    new String(tuple8.getValue1()), new String(tuple8.getValue2()),
-                    new String(tuple8.getValue3()), new String(tuple8.getValue4()),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple8.getValue5().longValue() * 1000)), new String(tuple8.getValue6()),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple8.getValue7().longValue() * 1000)), new String(tuple8.getValue8())
+                    tuple9.getValue1(), tuple9.getValue2(),
+                    materialIDStrList, tuple9.getValue4(),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple9.getValue5().longValue() * 1000)), tuple9.getValue6(),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple9.getValue7().longValue() * 1000)), tuple9.getValue8(),
+                    tuple9.getValue9().intValue()
             ));
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,9 +98,9 @@ public class DefaultConsumerServiceImpl implements ConsumerService {
     }
 
     @Override
-    public ServerResponse<String> feedBack(String packageID, String consumerAddr, Integer time, String information) {
+    public ServerResponse<String> feedBack(String packageID, Integer time, String information) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.feedBack(packageID.getBytes(), consumerAddr, BigInteger.valueOf(time), information.getBytes()).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.feedBack(packageID.getBytes(), BigInteger.valueOf(time), information).send();
             MedicineSourceTracing.NewFeedBackEventResponse response = medicineSourceTracing.getNewFeedBackEvents(transactionReceipt).get(0);
             if (response.isSuccess) {
                 return ServerResponse.createBySuccessMessage(response.message);

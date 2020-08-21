@@ -58,9 +58,9 @@ public class DefaultSellerServiceImpl implements SellerService {
     }
 
     @Override
-    public ServerResponse<String> setSeller(String sellerAddr, String sellerName, Integer sellerType) {
+    public ServerResponse<String> setSeller(String sellerName, Integer sellerType) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setSeller(sellerAddr, sellerName.getBytes(), BigInteger.valueOf(sellerType)).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setSeller(sellerName, BigInteger.valueOf(sellerType)).send();
             MedicineSourceTracing.NewSellerEventResponse response = medicineSourceTracing.getNewSellerEvents(transactionReceipt).get(0);
             return ServerResponse.createBySuccessMessage(response.message);
         } catch (Exception e) {
@@ -70,9 +70,9 @@ public class DefaultSellerServiceImpl implements SellerService {
     }
 
     @Override
-    public ServerResponse<String> setSellInfo(String packageID, Integer time, String sellerAddr, String consumerAddr, Integer price) {
+    public ServerResponse<String> setSellInfo(String packageID, Integer time, String consumerAddr, Integer price) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setSellInfo(packageID.getBytes(), BigInteger.valueOf(time), sellerAddr, consumerAddr, BigInteger.valueOf(price)).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setSellInfo(packageID.getBytes(), BigInteger.valueOf(time), consumerAddr, BigInteger.valueOf(price)).send();
             MedicineSourceTracing.NewSellInfoEventResponse response = medicineSourceTracing.getNewSellInfoEvents(transactionReceipt).get(0);
             if (response.isSuccess) {
                 return ServerResponse.createBySuccessMessage(response.message);

@@ -9,9 +9,9 @@ import cn.edu.zju.drugtracing.vo.TraceVO;
  */
 public interface ConsumerService {
 
-    ServerResponse<String> setConsumer(String consumerAddr, Integer gender, Integer age);
+    ServerResponse<String> setConsumer(Integer gender, Integer age);
 
     ServerResponse<TraceVO> trace(String packageID);
 
-    ServerResponse<String> feedBack(String packageID, String consumerAddr, Integer time, String information);
+    ServerResponse<String> feedBack(String packageID, Integer time, String information);
 }

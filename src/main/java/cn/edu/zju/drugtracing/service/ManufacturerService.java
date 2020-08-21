@@ -8,11 +8,11 @@ import cn.edu.zju.drugtracing.common.ServerResponse;
  */
 public interface ManufacturerService {
 
-    ServerResponse<String> setManufacturer(String manufacturerAddr, String manufacturerName);
+    ServerResponse<String> setManufacturer(String manufacturerName);
 
     ServerResponse<String> pack(String packageID, String boxID);
 
-    ServerResponse<String> setFormulation(String drugID, String drugName, String material);
+    ServerResponse<String> setFormulation(String drugID, String drugName, String[] material);
 
-    ServerResponse<String> setBoxInfo(String boxID, String manufacturerAddr, Integer time, String materialID);
+    ServerResponse<String> setBoxInfo(String boxID, Integer time, String[] materialID);
 }

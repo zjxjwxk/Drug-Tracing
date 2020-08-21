@@ -22,12 +22,11 @@ public class TransporterController {
         this.transporterService = transporterService;
     }
 
-    @ApiOperation("上传药品流通企业信息（根据药品流通企业地址（输入0则为当前函数调用者地址）、药品流通企业名称，上传药品流通企业信息）")
+    @ApiOperation("上传药品流通企业信息（根据药品流通企业名称，上传药品流通企业信息）")
     @PostMapping("/setTransporter")
     @ResponseBody
-    public ServerResponse<String> setTransporter(@ApiParam("药品流通企业地址（输入0则为当前函数调用者地址）") @RequestParam String transporterAddr,
-                                         @ApiParam("药品流通企业名称") @RequestParam String transporterName) {
-        return transporterService.setTransporter(transporterAddr, transporterName);
+    public ServerResponse<String> setTransporter(@ApiParam("药品流通企业名称") @RequestParam String transporterName) {
+        return transporterService.setTransporter(transporterName);
     }
 
     @ApiOperation("上传药品收揽信息（根据药品大包编号、收揽时间（输入0则为当前时间），上传药品收揽信息）")
@@ -38,7 +37,7 @@ public class TransporterController {
         return transporterService.pick(boxID, time);
     }
 
-    @ApiOperation("上传药品送达信息（根据药品大包编号、送达时间（输入0则为当前时间），上传药品收揽信息）")
+    @ApiOperation("上传药品送达信息（根据药品大包编号、送达时间（输入0则为当前时间）、药品销售平台地址，上传药品收揽信息）")
     @PostMapping("/drop")
     @ResponseBody
     public ServerResponse<String> drop(@ApiParam("药品大包编号（3bytes药品ID+3bytes大包ID）") @RequestParam String boxID,

@@ -8,7 +8,7 @@ import cn.edu.zju.drugtracing.common.ServerResponse;
  */
 public interface SellerService {
 
-    ServerResponse<String> setSeller(String sellerAddr, String sellerName, Integer sellerType);
+    ServerResponse<String> setSeller(String sellerName, Integer sellerType);
 
-    ServerResponse<String> setSellInfo(String packageID, Integer time, String sellerAddr, String consumerAddr, Integer price);
+    ServerResponse<String> setSellInfo(String packageID, Integer time, String consumerAddr, Integer price);
 }
