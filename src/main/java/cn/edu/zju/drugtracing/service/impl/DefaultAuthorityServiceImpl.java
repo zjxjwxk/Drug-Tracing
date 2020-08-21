@@ -184,7 +184,7 @@ public class DefaultAuthorityServiceImpl implements AuthorityService {
     @Override
     public ServerResponse<List<FeedBackVO>> getFeedBacks(String drugID) {
         try {
-            Tuple5<List<byte[]>, List<String>, List<BigInteger>, List<BigInteger>, List<BigInteger>> tuple5 = medicineSourceTracing.getFeedBacks(drugID).send();
+            Tuple5<List<byte[]>, List<String>, List<BigInteger>, List<BigInteger>, List<BigInteger>> tuple5 = medicineSourceTracing.getFeedBacks(drugID.getBytes()).send();
             List<byte[]> packageIDList = tuple5.getValue1();
             List<String> informationList = tuple5.getValue2();
             List<BigInteger> ageList = tuple5.getValue3();
