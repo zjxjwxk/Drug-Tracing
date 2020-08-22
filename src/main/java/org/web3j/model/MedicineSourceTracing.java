@@ -1,8 +1,20 @@
-package cn.edu.zju.drugtracing.contract;
+package org.web3j.model;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Callable;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.TypeReference;
-import org.web3j.abi.datatypes.*;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Bool;
+import org.web3j.abi.datatypes.DynamicBytes;
+import org.web3j.abi.datatypes.Event;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Bytes3;
 import org.web3j.abi.datatypes.generated.Bytes9;
 import org.web3j.abi.datatypes.generated.Uint256;
@@ -13,19 +25,16 @@ import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.tuples.generated.*;
+import org.web3j.tuples.generated.Tuple2;
+import org.web3j.tuples.generated.Tuple3;
+import org.web3j.tuples.generated.Tuple4;
+import org.web3j.tuples.generated.Tuple6;
+import org.web3j.tuples.generated.Tuple8;
 import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
 import rx.Observable;
 import rx.functions.Func1;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Callable;
 
 /**
  * <p>Auto generated code.
@@ -145,7 +154,7 @@ public class MedicineSourceTracing extends Contract {
 
     public RemoteCall<Tuple4<byte[], String, String, Boolean>> getFormulations(BigInteger index) {
         final Function function = new Function(FUNC_GETFORMULATIONS, 
-                Arrays.<Type>asList(new Uint256(index)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(index)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Bytes3>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Bool>() {}));
         return new RemoteCall<Tuple4<byte[], String, String, Boolean>>(
                 new Callable<Tuple4<byte[], String, String, Boolean>>() {
@@ -163,7 +172,7 @@ public class MedicineSourceTracing extends Contract {
 
     public RemoteCall<Tuple8<String, String, byte[], String, BigInteger, String, BigInteger, String>> trace(byte[] packageID) {
         final Function function = new Function(FUNC_TRACE, 
-                Arrays.<Type>asList(new Bytes9(packageID)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes9(packageID)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}, new TypeReference<Utf8String>() {}, new TypeReference<DynamicBytes>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Uint256>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Uint256>() {}, new TypeReference<Utf8String>() {}));
         return new RemoteCall<Tuple8<String, String, byte[], String, BigInteger, String, BigInteger, String>>(
                 new Callable<Tuple8<String, String, byte[], String, BigInteger, String, BigInteger, String>>() {
@@ -187,7 +196,7 @@ public class MedicineSourceTracing extends Contract {
         final Function function = new Function(
                 FUNC_PICK, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes6(boxID), 
-                new Uint256(time)),
+                new org.web3j.abi.datatypes.generated.Uint256(time)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
@@ -195,7 +204,7 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> pack(byte[] packageID, byte[] boxID) {
         final Function function = new Function(
                 FUNC_PACK, 
-                Arrays.<Type>asList(new Bytes9(packageID),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes9(packageID), 
                 new org.web3j.abi.datatypes.generated.Bytes6(boxID)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
@@ -204,9 +213,9 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> feedBack(byte[] packageID, BigInteger time, String information) {
         final Function function = new Function(
                 FUNC_FEEDBACK, 
-                Arrays.<Type>asList(new Bytes9(packageID),
-                new Uint256(time),
-                new Utf8String(information)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes9(packageID), 
+                new org.web3j.abi.datatypes.generated.Uint256(time), 
+                new org.web3j.abi.datatypes.Utf8String(information)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
@@ -214,10 +223,10 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> setSellInfo(byte[] packageID, BigInteger time, String consumerAddr, BigInteger price) {
         final Function function = new Function(
                 FUNC_SETSELLINFO, 
-                Arrays.<Type>asList(new Bytes9(packageID),
-                new Uint256(time),
-                new Address(consumerAddr),
-                new Uint256(price)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes9(packageID), 
+                new org.web3j.abi.datatypes.generated.Uint256(time), 
+                new org.web3j.abi.datatypes.Address(consumerAddr), 
+                new org.web3j.abi.datatypes.generated.Uint256(price)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
@@ -225,7 +234,7 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<Tuple2<byte[], Boolean>> getPackInfo(byte[] boxID, BigInteger index) {
         final Function function = new Function(FUNC_GETPACKINFO, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes6(boxID), 
-                new Uint256(index)),
+                new org.web3j.abi.datatypes.generated.Uint256(index)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Bytes9>() {}, new TypeReference<Bool>() {}));
         return new RemoteCall<Tuple2<byte[], Boolean>>(
                 new Callable<Tuple2<byte[], Boolean>>() {
@@ -242,7 +251,7 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> setManufacturer(String manufacturerName) {
         final Function function = new Function(
                 FUNC_SETMANUFACTURER, 
-                Arrays.<Type>asList(new Utf8String(manufacturerName)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Utf8String(manufacturerName)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
@@ -250,8 +259,8 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> setConsumer(BigInteger gender, BigInteger age) {
         final Function function = new Function(
                 FUNC_SETCONSUMER, 
-                Arrays.<Type>asList(new Uint256(gender),
-                new Uint256(age)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(gender), 
+                new org.web3j.abi.datatypes.generated.Uint256(age)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
@@ -260,15 +269,15 @@ public class MedicineSourceTracing extends Contract {
         final Function function = new Function(
                 FUNC_SETBOXINFO, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes6(boxID), 
-                new Uint256(time),
-                new DynamicBytes(materialID)),
+                new org.web3j.abi.datatypes.generated.Uint256(time), 
+                new org.web3j.abi.datatypes.DynamicBytes(materialID)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<Tuple4<String, String, BigInteger, Boolean>> getSellers(BigInteger index) {
         final Function function = new Function(FUNC_GETSELLERS, 
-                Arrays.<Type>asList(new Uint256(index)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(index)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Uint256>() {}, new TypeReference<Bool>() {}));
         return new RemoteCall<Tuple4<String, String, BigInteger, Boolean>>(
                 new Callable<Tuple4<String, String, BigInteger, Boolean>>() {
@@ -287,14 +296,14 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> setAuthority(String authorityAddr) {
         final Function function = new Function(
                 FUNC_SETAUTHORITY, 
-                Arrays.<Type>asList(new Address(authorityAddr)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(authorityAddr)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<Tuple3<String, String, Boolean>> getTransporters(BigInteger index) {
         final Function function = new Function(FUNC_GETTRANSPORTERS, 
-                Arrays.<Type>asList(new Uint256(index)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(index)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Bool>() {}));
         return new RemoteCall<Tuple3<String, String, Boolean>>(
                 new Callable<Tuple3<String, String, Boolean>>() {
@@ -312,16 +321,16 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> setSeller(String sellerName, BigInteger sellerType) {
         final Function function = new Function(
                 FUNC_SETSELLER, 
-                Arrays.<Type>asList(new Utf8String(sellerName),
-                new Uint256(sellerType)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Utf8String(sellerName), 
+                new org.web3j.abi.datatypes.generated.Uint256(sellerType)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<Tuple6<byte[], String, BigInteger, BigInteger, BigInteger, Boolean>> getFeedBacks(byte[] drugID, BigInteger index) {
         final Function function = new Function(FUNC_GETFEEDBACKS, 
-                Arrays.<Type>asList(new Bytes3(drugID),
-                new Uint256(index)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes3(drugID), 
+                new org.web3j.abi.datatypes.generated.Uint256(index)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Bytes9>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Uint256>() {}, new TypeReference<Uint256>() {}, new TypeReference<Uint256>() {}, new TypeReference<Bool>() {}));
         return new RemoteCall<Tuple6<byte[], String, BigInteger, BigInteger, BigInteger, Boolean>>(
                 new Callable<Tuple6<byte[], String, BigInteger, BigInteger, BigInteger, Boolean>>() {
@@ -343,8 +352,8 @@ public class MedicineSourceTracing extends Contract {
         final Function function = new Function(
                 FUNC_DROP, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes6(boxID), 
-                new Uint256(time),
-                new Address(sellerAddr)),
+                new org.web3j.abi.datatypes.generated.Uint256(time), 
+                new org.web3j.abi.datatypes.Address(sellerAddr)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
@@ -352,16 +361,16 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> setFormulation(byte[] drugID, String drugName, String material) {
         final Function function = new Function(
                 FUNC_SETFORMULATION, 
-                Arrays.<Type>asList(new Bytes3(drugID),
-                new Utf8String(drugName),
-                new Utf8String(material)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes3(drugID), 
+                new org.web3j.abi.datatypes.Utf8String(drugName), 
+                new org.web3j.abi.datatypes.Utf8String(material)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<Tuple3<String, String, Boolean>> getManufacturers(BigInteger index) {
         final Function function = new Function(FUNC_GETMANUFACTURERS, 
-                Arrays.<Type>asList(new Uint256(index)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(index)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Bool>() {}));
         return new RemoteCall<Tuple3<String, String, Boolean>>(
                 new Callable<Tuple3<String, String, Boolean>>() {
@@ -379,15 +388,15 @@ public class MedicineSourceTracing extends Contract {
     public RemoteCall<TransactionReceipt> setTransporter(String transporterName) {
         final Function function = new Function(
                 FUNC_SETTRANSPORTER, 
-                Arrays.<Type>asList(new Utf8String(transporterName)),
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Utf8String(transporterName)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public List<NewAuthorityEventResponse> getNewAuthorityEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWAUTHORITY_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWAUTHORITY_EVENT, transactionReceipt);
         ArrayList<NewAuthorityEventResponse> responses = new ArrayList<NewAuthorityEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewAuthorityEventResponse typedResponse = new NewAuthorityEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -401,7 +410,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewAuthorityEventResponse>() {
             @Override
             public NewAuthorityEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWAUTHORITY_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWAUTHORITY_EVENT, log);
                 NewAuthorityEventResponse typedResponse = new NewAuthorityEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -418,9 +427,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewManufacturerEventResponse> getNewManufacturerEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWMANUFACTURER_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWMANUFACTURER_EVENT, transactionReceipt);
         ArrayList<NewManufacturerEventResponse> responses = new ArrayList<NewManufacturerEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewManufacturerEventResponse typedResponse = new NewManufacturerEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -434,7 +443,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewManufacturerEventResponse>() {
             @Override
             public NewManufacturerEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWMANUFACTURER_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWMANUFACTURER_EVENT, log);
                 NewManufacturerEventResponse typedResponse = new NewManufacturerEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -451,9 +460,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewTransporterEventResponse> getNewTransporterEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWTRANSPORTER_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWTRANSPORTER_EVENT, transactionReceipt);
         ArrayList<NewTransporterEventResponse> responses = new ArrayList<NewTransporterEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewTransporterEventResponse typedResponse = new NewTransporterEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -467,7 +476,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewTransporterEventResponse>() {
             @Override
             public NewTransporterEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWTRANSPORTER_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWTRANSPORTER_EVENT, log);
                 NewTransporterEventResponse typedResponse = new NewTransporterEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -484,9 +493,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewSellerEventResponse> getNewSellerEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWSELLER_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWSELLER_EVENT, transactionReceipt);
         ArrayList<NewSellerEventResponse> responses = new ArrayList<NewSellerEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewSellerEventResponse typedResponse = new NewSellerEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -500,7 +509,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewSellerEventResponse>() {
             @Override
             public NewSellerEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWSELLER_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWSELLER_EVENT, log);
                 NewSellerEventResponse typedResponse = new NewSellerEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -517,9 +526,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewConsumerEventResponse> getNewConsumerEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWCONSUMER_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWCONSUMER_EVENT, transactionReceipt);
         ArrayList<NewConsumerEventResponse> responses = new ArrayList<NewConsumerEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewConsumerEventResponse typedResponse = new NewConsumerEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -533,7 +542,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewConsumerEventResponse>() {
             @Override
             public NewConsumerEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWCONSUMER_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWCONSUMER_EVENT, log);
                 NewConsumerEventResponse typedResponse = new NewConsumerEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -550,9 +559,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewPackInfoEventResponse> getNewPackInfoEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWPACKINFO_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWPACKINFO_EVENT, transactionReceipt);
         ArrayList<NewPackInfoEventResponse> responses = new ArrayList<NewPackInfoEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewPackInfoEventResponse typedResponse = new NewPackInfoEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -567,7 +576,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewPackInfoEventResponse>() {
             @Override
             public NewPackInfoEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWPACKINFO_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWPACKINFO_EVENT, log);
                 NewPackInfoEventResponse typedResponse = new NewPackInfoEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -585,9 +594,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewFormulationEventResponse> getNewFormulationEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWFORMULATION_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWFORMULATION_EVENT, transactionReceipt);
         ArrayList<NewFormulationEventResponse> responses = new ArrayList<NewFormulationEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewFormulationEventResponse typedResponse = new NewFormulationEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -602,7 +611,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewFormulationEventResponse>() {
             @Override
             public NewFormulationEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWFORMULATION_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWFORMULATION_EVENT, log);
                 NewFormulationEventResponse typedResponse = new NewFormulationEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -620,9 +629,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewBoxInfoEventResponse> getNewBoxInfoEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWBOXINFO_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWBOXINFO_EVENT, transactionReceipt);
         ArrayList<NewBoxInfoEventResponse> responses = new ArrayList<NewBoxInfoEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewBoxInfoEventResponse typedResponse = new NewBoxInfoEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -637,7 +646,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewBoxInfoEventResponse>() {
             @Override
             public NewBoxInfoEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWBOXINFO_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWBOXINFO_EVENT, log);
                 NewBoxInfoEventResponse typedResponse = new NewBoxInfoEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -655,9 +664,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewPickInfoEventResponse> getNewPickInfoEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWPICKINFO_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWPICKINFO_EVENT, transactionReceipt);
         ArrayList<NewPickInfoEventResponse> responses = new ArrayList<NewPickInfoEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewPickInfoEventResponse typedResponse = new NewPickInfoEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -672,7 +681,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewPickInfoEventResponse>() {
             @Override
             public NewPickInfoEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWPICKINFO_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWPICKINFO_EVENT, log);
                 NewPickInfoEventResponse typedResponse = new NewPickInfoEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -690,9 +699,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewDropInfoEventResponse> getNewDropInfoEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWDROPINFO_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWDROPINFO_EVENT, transactionReceipt);
         ArrayList<NewDropInfoEventResponse> responses = new ArrayList<NewDropInfoEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewDropInfoEventResponse typedResponse = new NewDropInfoEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -707,7 +716,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewDropInfoEventResponse>() {
             @Override
             public NewDropInfoEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWDROPINFO_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWDROPINFO_EVENT, log);
                 NewDropInfoEventResponse typedResponse = new NewDropInfoEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -725,9 +734,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewSellInfoEventResponse> getNewSellInfoEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWSELLINFO_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWSELLINFO_EVENT, transactionReceipt);
         ArrayList<NewSellInfoEventResponse> responses = new ArrayList<NewSellInfoEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewSellInfoEventResponse typedResponse = new NewSellInfoEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -742,7 +751,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewSellInfoEventResponse>() {
             @Override
             public NewSellInfoEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWSELLINFO_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWSELLINFO_EVENT, log);
                 NewSellInfoEventResponse typedResponse = new NewSellInfoEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -760,9 +769,9 @@ public class MedicineSourceTracing extends Contract {
     }
 
     public List<NewFeedBackEventResponse> getNewFeedBackEvents(TransactionReceipt transactionReceipt) {
-        List<EventValuesWithLog> valueList = extractEventParametersWithLog(NEWFEEDBACK_EVENT, transactionReceipt);
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWFEEDBACK_EVENT, transactionReceipt);
         ArrayList<NewFeedBackEventResponse> responses = new ArrayList<NewFeedBackEventResponse>(valueList.size());
-        for (EventValuesWithLog eventValues : valueList) {
+        for (Contract.EventValuesWithLog eventValues : valueList) {
             NewFeedBackEventResponse typedResponse = new NewFeedBackEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();
@@ -777,7 +786,7 @@ public class MedicineSourceTracing extends Contract {
         return web3j.ethLogObservable(filter).map(new Func1<Log, NewFeedBackEventResponse>() {
             @Override
             public NewFeedBackEventResponse call(Log log) {
-                EventValuesWithLog eventValues = extractEventParametersWithLog(NEWFEEDBACK_EVENT, log);
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NEWFEEDBACK_EVENT, log);
                 NewFeedBackEventResponse typedResponse = new NewFeedBackEventResponse();
                 typedResponse.log = log;
                 typedResponse.sender = (String) eventValues.getNonIndexedValues().get(0).getValue();

@@ -70,14 +70,14 @@ public class AuthorityController {
     @ApiOperation("查询药品包装信息（根据药品大包编号（3bytes药品ID+3bytes大包ID），获取其中的小包编号列表）")
     @GetMapping("/getPackInfo")
     @ResponseBody
-    public ServerResponse<List<String>> getPackInfo(@ApiParam("药品大包编号（3bytes药品ID+3bytes大包ID）") String boxID) {
+    public ServerResponse<List<String>> getPackInfo(@ApiParam("药品大包编号（3bytes药品ID+3bytes大包ID）") @RequestParam String boxID) {
         return authorityService.getPackInfo(boxID);
     }
 
-    @ApiOperation("查询用户反馈列表（根据药品编号，获取用户反馈列表）")
+    @ApiOperation("查询用户反馈列表（根据药品编号（3bytes），获取用户反馈列表）")
     @GetMapping("/getFeedBacks")
     @ResponseBody
-    public ServerResponse<List<FeedBackVO>> getFeedBacks(String drugID) {
+    public ServerResponse<List<FeedBackVO>> getFeedBacks(@ApiParam("药品编号（3bytes）") @RequestParam String drugID) {
         return authorityService.getFeedBacks(drugID);
     }
 }

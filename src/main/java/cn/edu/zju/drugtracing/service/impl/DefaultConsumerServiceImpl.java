@@ -13,7 +13,7 @@ import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tuples.generated.Tuple9;
+import org.web3j.tuples.generated.Tuple8;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
 
@@ -21,9 +21,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Xinkang Wu
@@ -78,18 +76,12 @@ public class DefaultConsumerServiceImpl implements ConsumerService {
     @Override
     public ServerResponse<TraceVO> trace(String packageID) {
         try {
-            Tuple9<String, List<String>, List<byte[]>, String, BigInteger, String, BigInteger, String, BigInteger> tuple9 = medicineSourceTracing.trace(packageID.getBytes()).send();
-            List<String> materialIDStrList = new ArrayList<>();
-            List<byte[]> materialIDBytesList = new ArrayList<>();
-            for (byte[] materialIDBytes : materialIDBytesList) {
-                materialIDStrList.add(new String(materialIDBytes));
-            }
+            Tuple8<String, String, byte[], String, BigInteger, String, BigInteger, String> tuple8 = medicineSourceTracing.trace(packageID.getBytes()).send();
             return ServerResponse.createBySuccess(new TraceVO(
-                    tuple9.getValue1(), tuple9.getValue2(),
-                    materialIDStrList, tuple9.getValue4(),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple9.getValue5().longValue() * 1000)), tuple9.getValue6(),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple9.getValue7().longValue() * 1000)), tuple9.getValue8(),
-                    tuple9.getValue9().intValue()
+                    tuple8.getValue1(), tuple8.getValue2(),
+                    new String(tuple8.getValue3()), tuple8.getValue4(),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple8.getValue5().longValue() * 1000)), tuple8.getValue6(),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(tuple8.getValue7().longValue() * 1000)), tuple8.getValue8()
             ));
         } catch (Exception e) {
             e.printStackTrace();

@@ -23,10 +23,10 @@ public class ConsumerController {
         this.consumerService = consumerService;
     }
 
-    @ApiOperation("上传消费者信息（根据消费者性别、年龄，上传消费者信息）")
+    @ApiOperation("上传消费者信息（根据消费者性别（0-女，1-男）、年龄，上传消费者信息）")
     @PostMapping("/setConsumer")
     @ResponseBody
-    public ServerResponse<String> setConsumer(@ApiParam(value = "消费者性别", example = "0") @RequestParam Integer gender,
+    public ServerResponse<String> setConsumer(@ApiParam(value = "消费者性别（0-女，1-男）", example = "0") @RequestParam Integer gender,
                                                   @ApiParam(value = "消费者年龄", example = "0") @RequestParam Integer age) {
         return consumerService.setConsumer(gender, age);
     }

@@ -12,7 +12,7 @@ public interface ManufacturerService {
 
     ServerResponse<String> pack(String packageID, String boxID);
 
-    ServerResponse<String> setFormulation(String drugID, String drugName, String[] material);
+    ServerResponse<String> setFormulation(String drugID, String drugName, String material);
 
-    ServerResponse<String> setBoxInfo(String boxID, Integer time, String[] materialID);
+    ServerResponse<String> setBoxInfo(String boxID, Integer time, String materialID);
 }

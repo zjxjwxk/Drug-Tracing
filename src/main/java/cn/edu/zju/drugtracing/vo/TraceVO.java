@@ -12,16 +12,15 @@ import java.util.List;
 public class TraceVO {
 
     String drugName;
-    List<String> material;
-    List<String> materialID;
+    String material;
+    String materialID;
     String manufacturerName;
     String pickTime;
     String transporterName;
     String dropTime;
     String sellerName;
-    Integer price;
 
-    public TraceVO(String drugName, List<String> material, List<String> materialID, String manufacturerName, String pickTime, String transporterName, String dropTime, String sellerName, Integer price) {
+    public TraceVO(String drugName, String material, String materialID, String manufacturerName, String pickTime, String transporterName, String dropTime, String sellerName) {
         this.drugName = drugName;
         this.material = material;
         this.materialID = materialID;
@@ -30,6 +29,5 @@ public class TraceVO {
         this.transporterName = transporterName;
         this.dropTime = dropTime;
         this.sellerName = sellerName;
-        this.price = price;
     }
 }

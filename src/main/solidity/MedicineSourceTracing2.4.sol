@@ -1,5 +1,4 @@
 pragma solidity ^0.4.0;
-pragma experimental ABIEncoderV2;
 
 contract MedicineSourceTracing {
     /*********************Manufacturer data structrue******************************/
@@ -14,7 +13,7 @@ contract MedicineSourceTracing {
     struct Formulation {    //药方
         bytes3 drugID;
         string drugName;
-        string[] material;
+        string material;
         uint existTag;
     }
     mapping (bytes3=>Formulation) formulation;
@@ -28,7 +27,7 @@ contract MedicineSourceTracing {
         bytes6 boxID;
         address manufacturerAddr;
         uint time;
-        bytes[] materialID;
+        bytes materialID;
     }
     mapping (bytes6=>BoxInfo) boxInfo;
     
@@ -86,7 +85,7 @@ contract MedicineSourceTracing {
         string information;
     }
     mapping (bytes9=>FeedBackInfo) feedBackInfo;
-    bytes9[] feedBackInfos;
+    mapping (bytes3=>bytes9[]) feedBackInfo_drug;
     
     /*************************authority data structrue & set function**************************/
     address authority;          //监管部门唯一，以地址标识
@@ -109,10 +108,11 @@ contract MedicineSourceTracing {
         manufacturer[msg.sender].manufacturerName = manufacturerName;
         manufacturer[msg.sender].existTag = 1;
         
-        if (tag == false)
-            emit newManufacturer(msg.sender,  "用户注册成功");
-        else
-            emit newManufacturer(msg.sender,  "用户信息修改成功");
+        if (tag == false) {
+            emit newManufacturer(msg.sender, "用户注册成功");
+            manufacturers.push(msg.sender);
+        } else
+            emit newManufacturer(msg.sender, "用户信息修改成功");
     }
     
     event newTransporter(address sender, string message);
@@ -127,9 +127,10 @@ contract MedicineSourceTracing {
         transporter[msg.sender].transporterName = transporterName;
         transporter[msg.sender].existTag = 1;
         
-        if (tag == false)
+        if (tag == false) {
             emit newTransporter(msg.sender, "注册用户成功");
-        else
+            transporters.push(msg.sender);
+        } else
             emit newTransporter(msg.sender, "用户信息修改成功");
     }
     
@@ -146,10 +147,11 @@ contract MedicineSourceTracing {
         seller[msg.sender].sellerType = sellerType;
         seller[msg.sender].existTag = 1;
         
-        if (tag == false)
-            emit newSeller(msg.sender , "注册用户成功");
-        else
-            emit newSeller(msg.sender , "用户信息修改成功");
+        if (tag == false) {
+            emit newSeller(msg.sender, "注册用户成功");
+            sellers.push(msg.sender);
+        } else
+            emit newSeller(msg.sender, "用户信息修改成功");
     }
     
     event newConsumer(address sender, string message);
@@ -166,9 +168,9 @@ contract MedicineSourceTracing {
         consumer[msg.sender].existTag = 1;
         
         if (tag == false)
-            emit newConsumer(msg.sender , "注册用户成功");
+            emit newConsumer(msg.sender, "注册用户成功");
         else
-            emit newConsumer(msg.sender , "用户信息修改成功");
+            emit newConsumer(msg.sender, "用户信息修改成功");
     }    
     
     /**************************functions********************************************/
@@ -193,7 +195,7 @@ contract MedicineSourceTracing {
     }
     
     event newFormulation(address sender, bool isSuccess, string message);
-    function setFormulation(bytes3 drugID, string drugName, string[] material) public {
+    function setFormulation(bytes3 drugID, string drugName, string material) public {
         if (manufacturer[msg.sender].existTag == 0) {
             emit newFormulation(msg.sender, false, "当前用户无上传配方权限");
             return;
@@ -206,18 +208,18 @@ contract MedicineSourceTracing {
 
         formulation[drugID].drugID = drugID;
         formulation[drugID].drugName = drugName;
-        for (uint i = 0; i< material.length; i++)
-            formulation[drugID].material[i] = material[i];
+        formulation[drugID].material = material;
         formulation[drugID].existTag = 1;
         
-        if (tag == false)
+        if (tag == false) {
             emit newFormulation(msg.sender, true, "新配方上传成功");
-        else
+            formulations.push(drugID);
+        } else
             emit newFormulation(msg.sender, true, "配方已存在，修改成功");
     }
     
     event newBoxInfo(address sender, bool isSuccess, string message);
-    function setBoxInfo(bytes6 boxID, uint time, bytes[] materialID) public {
+    function setBoxInfo(bytes6 boxID, uint time, bytes materialID) public {
         if (manufacturer[msg.sender].existTag == 0) {
             emit newBoxInfo(msg.sender, false, "当前用户无上传药品生产信息权限");
             return;
@@ -234,8 +236,7 @@ contract MedicineSourceTracing {
         boxInfo[boxID].boxID = boxID;
         boxInfo[boxID].manufacturerAddr = msg.sender;
         boxInfo[boxID].time = time;
-        for (uint i = 0;i < materialID.length; i++)
-            boxInfo[boxID].materialID[i] = materialID[i];
+        boxInfo[boxID].materialID = materialID;
         
         if (tag == false)
             emit newBoxInfo(msg.sender, true, "药品生产信息上传成功");
@@ -323,24 +324,22 @@ contract MedicineSourceTracing {
      /*****************by consumer or authority****************/
      function trace(bytes9 packageID) public view returns (       //trace information by package   //by consumer or authority
         string drugName,
-        string[] material,
-        bytes[] materialID,
+        string material,
+        bytes materialID,
         string manufacturerName,
         uint pickTime,
         string transporterName,
         uint dropTime,
-        string sellerName,
-        uint price) {
+        string sellerName) {
             
         bytes3 drugID = bytes3(packageID);
         bytes6 boxID = bytes6(packageID);
         address temp;
         
         drugName = formulation[drugID].drugName;
-        for (uint i = 0; i < formulation[drugID].material.length; i++) {
-            material[i] = formulation[drugID].material[i];
-            materialID[i] = boxInfo[boxID].materialID[i];
-        }
+        material = formulation[drugID].material;
+        materialID = boxInfo[boxID].materialID;
+            
         temp = boxInfo[boxID].manufacturerAddr;
         manufacturerName = manufacturer[temp].manufacturerName;
         
@@ -351,8 +350,6 @@ contract MedicineSourceTracing {
         
         temp = sellInfo[packageID].sellerAddr;
         sellerName = seller[temp].sellerName;
-        
-        price = sellInfo[packageID].price;
     }
 
     event newFeedBack(address sender,bool isSuccess, string message);
@@ -369,6 +366,9 @@ contract MedicineSourceTracing {
         feedBackInfo[packageID].time = time;
         feedBackInfo[packageID].information = information;
 
+        bytes3 drugID = bytes3(packageID);
+        feedBackInfo_drug[drugID].push(packageID);
+
         emit newFeedBack(msg.sender, true, "信息反馈成功");
     }
     
@@ -378,78 +378,98 @@ contract MedicineSourceTracing {
             revert();
         _;
     }
-    function getManufacturers() onlyAuthority public view returns (
-        address[] manufacturerAddr,
-        string[] manufacturerName) {
+    function getManufacturers(uint index) onlyAuthority public view returns (
+        address manufacturerAddr,
+        string manufacturerName,
+        bool isSuccess) {
 
-        for (uint i = 0; i < manufacturers.length; i++) {
-            manufacturerAddr[i] = manufacturers[i];
-            manufacturerName[i] = manufacturer[manufacturers[i]].manufacturerName;
+        if (index >= manufacturers.length) {
+            isSuccess = false;
+            return;
         }
+        manufacturerAddr = manufacturers[index];
+        manufacturerName = manufacturer[manufacturers[index]].manufacturerName;
+        isSuccess = true;
     }
     
-    function getFormulations() onlyAuthority public view returns (
-        bytes3[] drugID,
-        string[] drugName,
-        string[][] material) {
+    function getFormulations(uint index) onlyAuthority public view returns (
+        bytes3 drugID,
+        string drugName,
+        string material,
+        bool isSuccess) {
 
-        for (uint i = 0; i < formulations.length; i++) {
-            drugID[i] = formulations[i];
-            drugName[i] = formulation[formulations[i]].drugName;
-            for (uint j = 0; j < formulation[formulations[i]].material.length; j++)
-                material[i][j] = formulation[formulations[i]].material[j];
+        if (index >= formulations.length) {
+            isSuccess = false;
+            return;
         }
+        drugID = formulations[index];
+        drugName = formulation[formulations[index]].drugName;
+        material = formulation[formulations[index]].material;
+        isSuccess = true;
     }
         
-    function getTransporters() onlyAuthority public view returns (
-        address[] transporterAddr,
-        string[] transporterName) {
+    function getTransporters(uint index) onlyAuthority public view returns (
+        address transporterAddr,
+        string transporterName,
+        bool isSuccess) {
 
-        for (uint i = 0; i < transporters.length; i++) {
-            transporterAddr[i] = transporters[i];
-            transporterName[i] = transporter[transporters[i]].transporterName;
+        if (index >= transporters.length) {
+            isSuccess = false;
+            return;
         }
+        transporterAddr = transporters[index];
+        transporterName = transporter[transporters[index]].transporterName;
+        isSuccess = true;
     }
     
-    function getSellers() onlyAuthority public view returns (
-        address[] sellerAddr,
-        string[] sellerName,
-        uint[] sellerType) {
+    function getSellers(uint index) onlyAuthority public view returns (
+        address sellerAddr,
+        string sellerName,
+        uint sellerType,
+        bool isSuccess) {
 
-        for (uint i = 0; i < sellers.length; i++) {
-            sellerAddr[i] = sellers[i];
-            sellerName[i] = seller[sellers[i]].sellerName;
-            sellerType[i] = seller[sellers[i]].sellerType;
+        if (index >= sellers.length) {
+            isSuccess = false;
+            return;
         }
+        sellerAddr = sellers[index];
+        sellerName = seller[sellers[index]].sellerName;
+        sellerType = seller[sellers[index]].sellerType;
+        isSuccess = true;
     }
     
-    function getPackInfo(bytes6 boxID) onlyAuthority public view returns (
-        bytes9[] packageID) {
-        for (uint i = 0; i < packing[boxID].length; i++)
-            packageID[i] = packing[boxID][i];
+    function getPackInfo(bytes6 boxID, uint index) onlyAuthority public view returns (
+        bytes9 packageID,
+        bool isSuccess) {
+
+        if (index >= packing[boxID].length) {
+            isSuccess = false;
+            return;
+        }
+        packageID = packing[boxID][index];
+        isSuccess = true;
     }
         
-    function getFeedBacks(bytes3 drugID) onlyAuthority public view returns (
-        bytes9[], string[], uint[], uint[], uint[]) {
+    function getFeedBacks(bytes3 drugID, uint index) onlyAuthority public view returns (
+        bytes9 packageID,
+        string information,
+        uint age,
+        uint gender,
+        uint time,
+        bool isSuccess) {
 
-        bytes9[] storage packageID;
-        string[] storage information;
-        uint[] storage age;
-        uint[] storage gender;
-        uint[] storage time;
-
+        if (index >= feedBackInfo_drug[drugID].length) {
+            isSuccess = false;
+            return;
+        }
         address temp;
-        for (uint i = 0; i < feedBackInfos.length; i++) {
-            if (feedBackInfos[i][0] == drugID[0] && feedBackInfos[i][1] == drugID[1] && feedBackInfos[i][2] == drugID[2]) {
-                packageID.push(feedBackInfos[i]);
-                information.push(feedBackInfo[feedBackInfos[i]].information);
-                time.push(feedBackInfo[feedBackInfos[i]].time);
+        packageID = feedBackInfo_drug[drugID][index];
+        information = feedBackInfo[feedBackInfo_drug[drugID][index]].information;
+        time = feedBackInfo[feedBackInfo_drug[drugID][index]].time;
 
-                temp = feedBackInfo[feedBackInfos[i]].consumerAddr;
-                age.push(consumer[temp].age);
-                gender.push(consumer[temp].gender);
-            }
-        }
-        return (packageID, information, age, gender, time);
+        temp = feedBackInfo[feedBackInfo_drug[drugID][index]].consumerAddr;
+        age = consumer[temp].age;
+        gender = consumer[temp].gender;
+        isSuccess = true;
     }
 }

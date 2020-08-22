@@ -89,9 +89,9 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public ServerResponse<String> setFormulation(String drugID, String drugName, String[] material) {
+    public ServerResponse<String> setFormulation(String drugID, String drugName, String material) {
         try {
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setFormulation(drugID.getBytes(), drugName, Arrays.asList(material)).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setFormulation(drugID.getBytes(), drugName, material).send();
             MedicineSourceTracing.NewFormulationEventResponse response = medicineSourceTracing.getNewFormulationEvents(transactionReceipt).get(0);
             if (response.isSuccess) {
                 return ServerResponse.createBySuccessMessage(response.message);
@@ -105,13 +105,9 @@ public class DefaultManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public ServerResponse<String> setBoxInfo(String boxID, Integer time, String[] materialID) {
+    public ServerResponse<String> setBoxInfo(String boxID, Integer time, String materialID) {
         try {
-            List<byte[]> materialIDList = new ArrayList<>();
-            for (String s : materialID) {
-                materialIDList.add(s.getBytes());
-            }
-            TransactionReceipt transactionReceipt = medicineSourceTracing.setBoxInfo(boxID.getBytes(), BigInteger.valueOf(time), materialIDList).send();
+            TransactionReceipt transactionReceipt = medicineSourceTracing.setBoxInfo(boxID.getBytes(), BigInteger.valueOf(time), materialID.getBytes()).send();
             MedicineSourceTracing.NewBoxInfoEventResponse response = medicineSourceTracing.getNewBoxInfoEvents(transactionReceipt).get(0);
             if (response.isSuccess) {
                 return ServerResponse.createBySuccessMessage(response.message);
