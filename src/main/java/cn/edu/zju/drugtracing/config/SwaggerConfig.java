@@ -33,8 +33,8 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "药品溯源平台API文档",
-                "基于以太坊平台的药品溯源平台",
-                "API V1.0",
+                "基于以太坊平台的药品溯源平台\n智能合约查看地址：https://rinkeby.etherscan.io/address/0x6ff7463af40ddefab6db0f1572fccd7c3e190d0a",
+                "API V2.4",
                 "",
                 new Contact("", "", ""),
                 "", "", Collections.emptyList());

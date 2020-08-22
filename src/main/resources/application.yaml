@@ -23,7 +23,7 @@ wallet:
 #    key-path: /Users/zjxjwxk/Library/Ethereum/testnet/keystore/UTC--2020-05-27T00-15-38.978080837Z--87e08e9e27d6c1645b773a37ac4bd09773b3dd94.json
 
 contract:
-  address: "0x6ff7463af40ddefab6db0f1572fccd7c3e190d0a"
-#  address: "0x74900a568b611da224d50725294d2e47753fe989" # 测试网络 MedicineSourceTracing
-  #  address: "0x7a1D53F7d063F00BD489c6A730331c051D9C5754" # 测试网络 Greeter
-  #  address: "0x7659a35ce86c25ae4933a61be52951d7d0549165" # 私链 MedicineSourceTracing
+  address: "0x6ff7463af40ddefab6db0f1572fccd7c3e190d0a" # 测试网络 MedicineSourceTracing V2.4
+#  address: "0x74900a568b611da224d50725294d2e47753fe989" # 测试网络 MedicineSourceTracing V2.1
+#  address: "0x7659a35ce86c25ae4933a61be52951d7d0549165" # 私链 MedicineSourceTracing
+#  address: "0x7a1D53F7d063F00BD489c6A730331c051D9C5754" # 测试网络 Greeter
