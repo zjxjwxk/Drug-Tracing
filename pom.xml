@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>cn.edu.zju</groupId>
 	<artifactId>drugtracing</artifactId>
-	<version>1.0.0</version>
+	<version>2.4</version>
 	<name>Drug-Tracing</name>
 	<description>Drug Tracing System Based on Ethereum</description>
 
@@ -99,6 +99,19 @@
 							<include>*.sol</include>
 						</includes>
 					</soliditySourceFiles>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>io.github.swagger2markup</groupId>
+				<artifactId>swagger2markup-maven-plugin</artifactId>
+				<version>1.3.3</version>
+				<configuration>
+					<swaggerInput>http://121.36.26.124:8080/v2/api-docs</swaggerInput>
+<!--					<outputDir>build/asciidoc</outputDir>-->
+					<outputFile>asciidoc/swagger</outputFile>
+					<config>
+						<swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
+					</config>
 				</configuration>
 			</plugin>
 		</plugins>

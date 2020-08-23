@@ -1,0 +1,1104 @@
+= 药品溯源平台API文档
+
+
+[[_overview]]
+== Overview
+基于以太坊平台的药品溯源平台
+智能合约查看地址：https://rinkeby.etherscan.io/address/0x6ff7463af40ddefab6db0f1572fccd7c3e190d0a
+
+
+=== Version information
+[%hardbreaks]
+__Version__ : API V2.4
+
+
+=== URI scheme
+[%hardbreaks]
+__Host__ : 121.36.26.124:8080
+__BasePath__ : /
+
+
+=== Tags
+
+* 消费者接口 : Consumer Controller
+* 药品流通企业接口 : Transporter Controller
+* 药品生产企业接口 : Manufacturer Controller
+* 药品监管部门接口 : Authority Controller
+* 药品销售平台接口 : Seller Controller
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_getfeedbacksusingget]]
+=== 查询用户反馈列表（根据药品编号（3bytes），获取用户反馈列表）
+....
+GET /authority/getFeedBacks
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**drugID** +
+__optional__|药品编号（3bytes）|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_46d7fcf63ea5f1dd020395c8d1dbfbd6,ServerResponse«List«FeedBackVO»»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_getformulationsusingget]]
+=== 查询药品信息列表
+....
+GET /authority/getFormulations
+....
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_fe4435fcc4a2d18b01b9cca55e10f502,ServerResponse«List«FormulationVO»»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_getmanufacturersusingget]]
+=== 查询药品生产企业信息列表
+....
+GET /authority/getManufacturers
+....
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_651904b917715826969673caef17fc75,ServerResponse«List«ManufacturerVO»»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_getpackinfousingget]]
+=== 查询药品包装信息（根据药品大包编号（3bytes药品ID+3bytes大包ID），获取其中的小包编号列表）
+....
+GET /authority/getPackInfo
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**boxID** +
+__optional__|药品大包编号（3bytes药品ID+3bytes大包ID）|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_5b6320d6a2deff8f0153ec283345a2d2,ServerResponse«List«string»»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_getsellersusingget]]
+=== 查询药品销售平台信息列表
+....
+GET /authority/getSellers
+....
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_80bb7b182bfa6ec1bb90fe46cee129fe,ServerResponse«List«SellerVO»»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_gettransportersusingget]]
+=== 查询药品流通企业信息列表
+....
+GET /authority/getTransporters
+....
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_d0824409d57071c81a58458e3eb31f0c,ServerResponse«List«TransporterVO»»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_setauthorityusingpost]]
+=== 上传监管部门地址（需管理员权限）
+....
+POST /authority/setAuthority
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**authorityAddr** +
+__optional__|药品监管部门地址|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_traceusingget]]
+=== 药品溯源（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID），获得药品溯源信息）
+....
+GET /authority/trace
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**packageID** +
+__optional__|药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_149c9fa822ab44be7c507c8fc7f66ba4,ServerResponse«TraceVO»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品监管部门接口
+
+
+[[_feedbackusingpost]]
+=== 药品反馈（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）、反馈时间（输入0则为当前时间）、反馈信息，对药品进行反馈）
+....
+POST /consumer/feedBack
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**information** +
+__optional__|反馈信息|string
+|**Query**|**packageID** +
+__optional__|药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）|string
+|**Query**|**time** +
+__optional__|反馈时间（输入0则为当前时间）|integer (int32)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 消费者接口
+
+
+[[_setconsumerusingpost]]
+=== 上传消费者信息（根据消费者性别（0-女，1-男）、年龄，上传消费者信息）
+....
+POST /consumer/setConsumer
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**age** +
+__optional__|消费者年龄|integer (int32)
+|**Query**|**gender** +
+__optional__|消费者性别（0-女，1-男）|integer (int32)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 消费者接口
+
+
+[[_traceusingget_1]]
+=== 药品溯源（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID），获得药品溯源信息）
+....
+GET /consumer/trace
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**packageID** +
+__optional__|药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_149c9fa822ab44be7c507c8fc7f66ba4,ServerResponse«TraceVO»>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 消费者接口
+
+
+[[_packusingpost]]
+=== 打包药品（根据药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）、对应的药品大包编号（3bytes药品ID+3bytes大包ID），上传对应关系）
+....
+POST /manufacturer/pack
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**boxID** +
+__optional__|药品大包编号（3bytes药品ID+3bytes大包ID）|string
+|**Query**|**packageID** +
+__optional__|药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品生产企业接口
+
+
+[[_setboxinfousingpost]]
+=== 上传包装信息（根据药品大包编号、包装时间（输入0则为当前时间）、药品原料编号（用逗号分割），上传包装信息）
+....
+POST /manufacturer/setBoxInfo
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**boxID** +
+__optional__|药品大包编号（3bytes药品ID+3bytes大包ID）|string
+|**Query**|**materialID** +
+__optional__|药品原料编号（用逗号分割）|string
+|**Query**|**time** +
+__optional__|包装时间（输入0则为当前时间）|integer (int32)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品生产企业接口
+
+
+[[_setformulationusingpost]]
+=== 上传药方（根据药品编号、药品名称、药品原料名称（用逗号分割），上传药方）
+....
+POST /manufacturer/setFormulation
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**drugID** +
+__optional__|药品编号（3bytes药品ID）|string
+|**Query**|**drugName** +
+__optional__|药品名称|string
+|**Query**|**material** +
+__optional__|药品原料名称（用逗号分割）|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品生产企业接口
+
+
+[[_setmanufacturerusingpost]]
+=== 上传药品生产企业信息（根据药品生产企业名称，上传药品生产企业信息）
+....
+POST /manufacturer/setManufacturer
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**manufacturerName** +
+__optional__|药品生产企业名称|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品生产企业接口
+
+
+[[_setsellinfousingpost]]
+=== 上传销售信息（根据药品小包编号、销售时间（输入0则为当前时间）、销售平台地址、消费者地址、销售价格，上传销售信息）
+....
+POST /seller/setSellInfo
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**consumerAddr** +
+__optional__|消费者地址|string
+|**Query**|**packageID** +
+__optional__|药品小包编号（3bytes药品ID+3bytes大包ID+3bytes小包ID）|string
+|**Query**|**price** +
+__optional__|销售价格|integer (int32)
+|**Query**|**time** +
+__optional__|销售时间（输入0则为当前时间）|integer (int32)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品销售平台接口
+
+
+[[_setsellerusingpost]]
+=== 上传药品销售平台信息（根据药品销售平台名称、药品销售平台类型（0-医院；1-药店；2-电商），上传药品销售平台信息）
+....
+POST /seller/setSeller
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**sellerName** +
+__optional__|药品销售平台名称|string
+|**Query**|**sellerType** +
+__optional__|药品销售平台类型（0-医院；1-药店；2-电商）|integer (int32)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品销售平台接口
+
+
+[[_dropusingpost]]
+=== 上传药品送达信息（根据药品大包编号、送达时间（输入0则为当前时间）、药品销售平台地址，上传药品收揽信息）
+....
+POST /transporter/drop
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**boxID** +
+__optional__|药品大包编号（3bytes药品ID+3bytes大包ID）|string
+|**Query**|**sellerAddr** +
+__optional__|药品销售平台地址|string
+|**Query**|**time** +
+__optional__|送达时间（输入0则为当前时间）|integer (int32)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品流通企业接口
+
+
+[[_pickusingpost]]
+=== 上传药品收揽信息（根据药品大包编号、收揽时间（输入0则为当前时间），上传药品收揽信息）
+....
+POST /transporter/pick
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**boxID** +
+__optional__|药品大包编号（3bytes药品ID+3bytes大包ID）|string
+|**Query**|**time** +
+__optional__|收揽时间（输入0则为当前时间）|integer (int32)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品流通企业接口
+
+
+[[_settransporterusingpost]]
+=== 上传药品流通企业信息（根据药品流通企业名称，上传药品流通企业信息）
+....
+POST /transporter/setTransporter
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**transporterName** +
+__optional__|药品流通企业名称|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_6317df7eb44fcf9f4c3a778f8d8d4dc6,ServerResponse«string»>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* 药品流通企业接口
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_feedbackvo]]
+=== FeedBackVO
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**age** +
+__optional__|integer (int32)
+|**gender** +
+__optional__|integer (int32)
+|**information** +
+__optional__|string
+|**packageID** +
+__optional__|string
+|**time** +
+__optional__|string
+|===
+
+
+[[_formulationvo]]
+=== FormulationVO
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**drugID** +
+__optional__|string
+|**drugName** +
+__optional__|string
+|**material** +
+__optional__|string
+|===
+
+
+[[_manufacturervo]]
+=== ManufacturerVO
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**manufacturerAddr** +
+__optional__|string
+|**manufacturerName** +
+__optional__|string
+|===
+
+
+[[_sellervo]]
+=== SellerVO
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**sellerAddr** +
+__optional__|string
+|**sellerName** +
+__optional__|string
+|**sellerType** +
+__optional__|integer (int32)
+|===
+
+
+[[_46d7fcf63ea5f1dd020395c8d1dbfbd6]]
+=== ServerResponse«List«FeedBackVO»»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|< <<_feedbackvo,FeedBackVO>> > array
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_fe4435fcc4a2d18b01b9cca55e10f502]]
+=== ServerResponse«List«FormulationVO»»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|< <<_formulationvo,FormulationVO>> > array
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_651904b917715826969673caef17fc75]]
+=== ServerResponse«List«ManufacturerVO»»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|< <<_manufacturervo,ManufacturerVO>> > array
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_80bb7b182bfa6ec1bb90fe46cee129fe]]
+=== ServerResponse«List«SellerVO»»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|< <<_sellervo,SellerVO>> > array
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_d0824409d57071c81a58458e3eb31f0c]]
+=== ServerResponse«List«TransporterVO»»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|< <<_transportervo,TransporterVO>> > array
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_5b6320d6a2deff8f0153ec283345a2d2]]
+=== ServerResponse«List«string»»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|< string > array
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_149c9fa822ab44be7c507c8fc7f66ba4]]
+=== ServerResponse«TraceVO»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|<<_tracevo,TraceVO>>
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_6317df7eb44fcf9f4c3a778f8d8d4dc6]]
+=== ServerResponse«string»
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**data** +
+__optional__|string
+|**msg** +
+__optional__|string
+|**status** +
+__optional__|integer (int32)
+|===
+
+
+[[_tracevo]]
+=== TraceVO
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**dropTime** +
+__optional__|string
+|**drugName** +
+__optional__|string
+|**manufacturerName** +
+__optional__|string
+|**material** +
+__optional__|string
+|**materialID** +
+__optional__|string
+|**pickTime** +
+__optional__|string
+|**sellerName** +
+__optional__|string
+|**transporterName** +
+__optional__|string
+|===
+
+
+[[_transportervo]]
+=== TransporterVO
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**transporterAddr** +
+__optional__|string
+|**transporterName** +
+__optional__|string
+|===
+
+
+
+
+
